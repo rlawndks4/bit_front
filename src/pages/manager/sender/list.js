@@ -17,41 +17,27 @@ const SenderList = () => {
   const defaultHeadColumns = [
     {
       title: '기본정보',
-      count: 5,
+      count: 1,
     },
     {
-      title: 'KAKAO 정보',
+      title: '유저정보',
       count: 2
     },
 
   ]
   const defaultColumns = [
     {
-      id: 'profile_img',
-      label: '유저프로필',
+      id: 'sender',
+      label: '발신번호',
       action: (row) => {
-        return <Avatar src={row['profile_img'] ?? "---"} />
+        return row['sender'] ?? "---"
       }
     },
     {
       id: 'user_name',
-      label: '유저아이디',
+      label: '아이디',
       action: (row) => {
         return row['user_name'] ?? "---"
-      }
-    },
-    {
-      id: 'nickname',
-      label: '닉네임',
-      action: (row) => {
-        return row['nickname'] ?? "---"
-      }
-    },
-    {
-      id: 'phone_num',
-      label: '휴대폰번호',
-      action: (row) => {
-        return row['phone_num'] ?? "---"
       }
     },
     {
@@ -69,106 +55,10 @@ const SenderList = () => {
       },
     },
     {
-      id: 'kakao_token',
-      label: '토큰',
-      action: (row) => {
-        return <Accordion key={row?.id} style={{ boxShadow: "none", background: 'transparent', width: '200px', wordBreak: 'break-all' }} disabled={!(row?.kakao_token)}>
-          <AccordionSummary expandIcon={<Icon icon="eva:arrow-ios-downward-fill" />}>
-            <Typography variant="subtitle1">자세히보기</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {row?.kakao_token}
-          </AccordionDetails>
-        </Accordion>
-      },
-    },
-    {
-      id: 'kakao_token_expired',
-      label: '토큰 만료일',
-      action: (row) => {
-        return <Col style={{
-          maxWidth: '300px',
-          wordBreak: 'break-all'
-        }}>
-          <div>
-            {row['kakao_token_expired'] ? returnMoment(false, new Date(row.kakao_token_expired)) : '---'}
-          </div>
-        </Col>
-      },
-    },
-    {
       id: 'created_at',
-      label: '가입일',
+      label: '신청일',
       action: (row) => {
         return row['created_at'] ?? "---"
-      }
-    },
-
-    {
-      id: 're_api_key',
-      label: 'api key 재발급',
-      action: (row) => {
-        return (
-          <>
-            <IconButton onClick={() => {
-
-            }}>
-              <Icon icon='material-symbols:replay' />
-            </IconButton>
-          </>
-        )
-      }
-    },
-    {
-      id: 're_kakao_token',
-      label: '카카오토큰 재발급',
-      action: (row) => {
-        return (
-          <>
-            <IconButton onClick={() => {
-
-            }}>
-              <Icon icon='material-symbols:replay' />
-            </IconButton>
-          </>
-        )
-      }
-    },
-    {
-      id: 'edit_password',
-      label: '허용IP설정',
-      action: (row) => {
-        return (
-          <>
-            <IconButton onClick={() => {
-              router.push(`edit/${row?.id}?type=1`)
-            }}>
-              <Icon icon='eos-icons:ip-outlined' />
-            </IconButton>
-          </>
-        )
-      }
-    },
-    {
-      id: 'edit_password',
-      label: '비밀번호 변경',
-      action: (row) => {
-        if (user?.level < row?.level) {
-          return "---"
-        }
-        return (
-          <>
-            <IconButton onClick={() => {
-              setDialogObj({ ...dialogObj, changePassword: true })
-              setChangePasswordObj({
-                user_pw: '',
-                id: row?.id
-              })
-            }}>
-              <Icon icon='material-symbols:lock-outline' />
-            </IconButton>
-          </>
-        )
       }
     },
     {
@@ -196,9 +86,7 @@ const SenderList = () => {
       }
     },
   ]
-  useEffect(() => {
-    console.log(showApiKeyId)
-  }, [showApiKeyId])
+ 
   const router = useRouter();
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState({});
@@ -208,13 +96,6 @@ const SenderList = () => {
     s_dt: '',
     e_dt: '',
     search: '',
-  })
-  const [dialogObj, setDialogObj] = useState({
-    changePassword: false,
-  })
-  const [changePasswordObj, setChangePasswordObj] = useState({
-    id: '',
-    user_pw: ''
   })
   useEffect(() => {
     pageSetting();
@@ -229,71 +110,21 @@ const SenderList = () => {
       ...data,
       content: undefined
     })
-    let data_ = await apiManager('users', 'list', obj);
+    let data_ = await apiManager('senders', 'list', obj);
     if (data_) {
       setData(data_);
     }
     setSearchObj(obj);
   }
   const deleteItem = async (id) => {
-    let data = await apiManager('users', 'delete', { id });
+    let data = await apiManager('senders', 'delete', { id });
     if (data) {
       onChangePage(searchObj);
     }
   }
-  const onChangeUserPassword = async () => {
-    let result = await apiManager(`users/change-pw`, 'update', changePasswordObj);
-    if (result) {
-      setDialogObj({
-        ...dialogObj,
-        changePassword: false
-      })
-      setChangePasswordObj({
-        id: '',
-        user_pw: ''
-      })
-      toast.success("성공적으로 변경 되었습니다.");
-    }
-  }
+ 
   return (
     <>
-      <Dialog
-        open={dialogObj.changePassword}
-      >
-        <DialogTitle>{`비밀번호 변경`}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            새 비밀번호를 입력 후 확인을 눌러주세요.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            fullWidth
-            value={changePasswordObj.user_pw}
-            type="password"
-            margin="dense"
-            label="새 비밀번호"
-            onChange={(e) => {
-              setChangePasswordObj({
-                ...changePasswordObj,
-                user_pw: e.target.value
-              })
-            }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button variant="contained" onClick={onChangeUserPassword}>
-            변경
-          </Button>
-          <Button color="inherit" onClick={() => {
-            setDialogObj({
-              ...dialogObj,
-              changePassword: false
-            })
-          }}>
-            취소
-          </Button>
-        </DialogActions>
-      </Dialog>
       <Stack spacing={3}>
         <Card>
           <ManagerTable
@@ -302,10 +133,7 @@ const SenderList = () => {
             head_columns={defaultHeadColumns}
             searchObj={searchObj}
             onChangePage={onChangePage}
-            add_button_text={'회원 추가'}
-            table_style={{
-              width: '150%'
-            }}
+            add_button_text={'발신자 추가'}
           />
         </Card>
       </Stack>

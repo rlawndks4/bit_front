@@ -69,20 +69,20 @@ const navConfig = () => {
         },
       ],
     },
-    {
-      items: [
-        {
-          title: '게시물관리',
-          path: PATH_MANAGER.post.root,
-          icon: ICONS.booking,
-          children: [
-            { title: '게시물관리', path: PATH_MANAGER.post.list },
-            { title: '게시물추가', path: PATH_MANAGER.post.add },
+    // {
+    //   items: [
+    //     {
+    //       title: '게시물관리',
+    //       path: PATH_MANAGER.post.root,
+    //       icon: ICONS.booking,
+    //       children: [
+    //         { title: '게시물관리', path: PATH_MANAGER.post.list },
+    //         { title: '게시물추가', path: PATH_MANAGER.post.add },
 
-          ],
-        },
-      ],
-    },
+    //       ],
+    //     },
+    //   ],
+    // },
     {
       items: [
         {

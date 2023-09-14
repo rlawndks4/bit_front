@@ -7,7 +7,7 @@ import { Col, Row } from "src/components/elements/styled-components";
 import { toast } from "react-hot-toast";
 import { useModal } from "src/components/dialog/ModalProvider";
 import ManagerLayout from "src/layouts/manager/ManagerLayout";
-import { apiManager } from "src/utils/api-manager";
+import { apiApiServer, apiManager } from "src/utils/api-manager";
 import { useAuthContext } from "src/auth/useAuthContext";
 import { commarNumber, returnMoment } from "src/utils/function";
 const UserList = () => {
@@ -23,7 +23,6 @@ const UserList = () => {
       title: 'KAKAO 정보',
       count: 2
     },
-
   ]
   const defaultColumns = [
     {
@@ -111,7 +110,11 @@ const UserList = () => {
         return (
           <>
             <IconButton onClick={() => {
-
+              setModal({
+                func: () => { onChangeUserApiKey(row) },
+                icon: 'material-symbols:replay',
+                title: 'api key 재발급 하시겠습니까?'
+              })
             }}>
               <Icon icon='material-symbols:replay' />
             </IconButton>
@@ -126,7 +129,11 @@ const UserList = () => {
         return (
           <>
             <IconButton onClick={() => {
-
+              setModal({
+                func: () => { onChangeUserKakaoToken(row) },
+                icon: 'material-symbols:replay',
+                title: '카카오토큰 재발급 하시겠습니까?'
+              })
             }}>
               <Icon icon='material-symbols:replay' />
             </IconButton>
@@ -196,9 +203,7 @@ const UserList = () => {
       }
     },
   ]
-  useEffect(() => {
-    console.log(showApiKeyId)
-  }, [showApiKeyId])
+
   const router = useRouter();
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState({});
@@ -253,6 +258,20 @@ const UserList = () => {
         user_pw: ''
       })
       toast.success("성공적으로 변경 되었습니다.");
+    }
+  }
+  const onChangeUserApiKey = async (row) => {
+    let result = await apiManager(`users/change-api-key`, 'update', row);
+    if (result) {
+      toast.success("성공적으로 발급 되었습니다.");
+      onChangePage(searchObj);
+    }
+  }
+  const onChangeUserKakaoToken = async (row) => {
+    let result = await apiApiServer(`alimtalk/v1/token/create/1/m`, 'create', { ...row, user_id: row?.user_name });
+    if (result) {
+      toast.success("성공적으로 발급 되었습니다.");
+      onChangePage(searchObj);
     }
   }
   return (

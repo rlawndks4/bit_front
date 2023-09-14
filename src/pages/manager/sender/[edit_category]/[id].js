@@ -19,7 +19,6 @@ const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
 })
-
 const tab_list = [
   {
     value: 0,
@@ -27,7 +26,11 @@ const tab_list = [
   },
   {
     value: 1,
-    label: '허용 IP',
+    label: '위임자서류정보',
+  },
+  {
+    value: 2,
+    label: '수임자서류정보',
   },
 ]
 const SenderEdit = () => {
@@ -38,39 +41,41 @@ const SenderEdit = () => {
 
   const [loading, setLoading] = useState(true);
   const [item, setItem] = useState({
-    profile_file: undefined,
+    name: '',
+    sender: '',
     user_name: '',
-    user_pw: '',
-    nickname: '',
-    phone_num: '',
     note: '',
+    delegator_tel_sub_file: undefined,
+    delegator_bsin_lic_file: undefined,
+    delegator_consign_file: undefined,
+    mandatary_bsin_lic_file: undefined,
+    mandatary_warrant_file: undefined,
+    mandatary_seal_file: undefined,
+    mandatary_agent_serve_file: undefined,
   })
-  const [ipList, setIpList] = useState([]);
-
   useEffect(() => {
     settingPage();
   }, [router.asPath])
   const settingPage = async () => {
     setCurrentTab(router.query?.type ?? 0);
     if (router.query?.edit_category == 'edit') {
-      let data = await apiManager('users', 'get', {
+      let data = await apiManager('senders', 'get', {
         id: router.query.id
       })
       setItem(data);
-      setIpList(data?.ip_list);
     }
     setLoading(false);
   }
   const onSave = async () => {
     let result = undefined
     if (item?.id) {//수정
-      result = await apiManager('users', 'update', { ...item, ip_list: ipList });
+      result = await apiManager('senders', 'update', { ...item });
     } else {//추가
-      result = await apiManager('users', 'create', { ...item, ip_list: ipList });
+      result = await apiManager('senders', 'create', { ...item });
     }
     if (result) {
       toast.success("성공적으로 저장 되었습니다.");
-      router.push('/manager/user');
+      router.push('/manager/sender');
     }
   }
   return (
@@ -93,33 +98,28 @@ const SenderEdit = () => {
                 <Grid item xs={12} md={6}>
                   <Card sx={{ p: 2, height: '100%' }}>
                     <Stack spacing={3}>
-                      <Stack spacing={1}>
-                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                          프로필사진
-                        </Typography>
-                        <Upload file={item.profile_file || item.profile_img} onDrop={(acceptedFiles) => {
-                          const newFile = acceptedFiles[0];
-                          if (newFile) {
-                            setItem(
-                              {
-                                ...item,
-                                ['profile_file']: Object.assign(newFile, {
-                                  preview: URL.createObjectURL(newFile),
-                                })
-                              }
-                            );
-                          }
-                        }} onDelete={() => {
+                      <TextField
+                        label='발신번호명'
+                        value={item.name}
+                        onChange={(e) => {
                           setItem(
                             {
                               ...item,
-                              ['profile_img']: '',
-                              ['profile_file']: undefined,
+                              ['name']: e.target.value
                             }
                           )
-                        }}
-                        />
-                      </Stack>
+                        }} />
+                      <TextField
+                        label='발신번호'
+                        value={item.sender}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['sender']: e.target.value
+                            }
+                          )
+                        }} />
                     </Stack>
                   </Card>
                 </Grid>
@@ -127,7 +127,7 @@ const SenderEdit = () => {
                   <Card sx={{ p: 2, height: '100%' }}>
                     <Stack spacing={3}>
                       <TextField
-                        label='아이디'
+                        label='유저아이디'
                         value={item.user_name}
                         onChange={(e) => {
                           setItem(
@@ -137,49 +137,10 @@ const SenderEdit = () => {
                             }
                           )
                         }} />
-                      {router.query?.edit_category == 'add' &&
-                        <>
-                          <TextField
-                            label='패스워드'
-                            value={item.user_pw}
-
-                            type='password'
-                            onChange={(e) => {
-                              setItem(
-                                {
-                                  ...item,
-                                  ['user_pw']: e.target.value
-                                }
-                              )
-                            }} />
-                        </>}
-                      <TextField
-                        label='닉네임'
-                        value={item.nickname}
-                        onChange={(e) => {
-                          setItem(
-                            {
-                              ...item,
-                              ['nickname']: e.target.value
-                            }
-                          )
-                        }} />
-                      <TextField
-                        label='전화번호'
-                        value={item.phone_num}
-                        placeholder="하이픈(-) 제외 입력"
-                        onChange={(e) => {
-                          setItem(
-                            {
-                              ...item,
-                              ['phone_num']: e.target.value
-                            }
-                          )
-                        }} />
                       <Stack spacing={1}>
                         <TextField
                           fullWidth
-                          label="고객메모"
+                          label="관리자노트"
                           multiline
                           rows={4}
                           value={item.note}
@@ -197,42 +158,219 @@ const SenderEdit = () => {
               </>}
             {currentTab == 1 &&
               <>
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={6}>
                   <Card sx={{ p: 2, height: '100%' }}>
-                    <Stack spacing={2} style={{ maxWidth: '500px', margin: 'auto' }}>
-                      {ipList.map((ip, idx) => (
-                        <>
-                          {ip?.is_delete != 1 &&
-                            <>
-                              <Row>
-                                <TextField
-                                  sx={{ flexGrow: 1 }}
-                                  size='small'
-                                  label='IP'
-                                  value={ip?.ip}
-                                  onChange={(e) => {
-                                    let ip_list = [...ipList];
-                                    ip_list[idx].ip = e.target.value;
-                                    setIpList(ip_list);
-                                  }}
-                                />
-                                <IconButton onClick={() => {
-                                  let ip_list = [...ipList];
-                                  ip_list[idx].is_delete = 1;
-                                  setIpList(ip_list);
-                                }}>
-                                  <Icon icon='material-symbols:delete-outline' />
-                                </IconButton>
-                              </Row>
-                            </>}
-                        </>
-                      ))}
-                      <Button variant="outlined" onClick={() => {
-                        setIpList([
-                          ...ipList,
-                          [{ ip: '' }]
-                        ])
-                      }}>추가</Button>
+                    <Stack spacing={3}>
+                      <Stack spacing={1}>
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          통신가입증명서
+                        </Typography>
+                        <Upload file={item.delegator_tel_sub_file || item.delegator_tel_sub_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['delegator_tel_sub_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['delegator_tel_sub_img']: '',
+                              ['delegator_tel_sub_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                      </Stack>
+                      <Stack spacing={1}>
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          사업자등록증
+                        </Typography>
+                        <Upload file={item.delegator_bsin_lic_file || item.delegator_bsin_lic_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['delegator_bsin_lic_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['delegator_bsin_lic_img']: '',
+                              ['delegator_bsin_lic_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                      </Stack>
+                    </Stack>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <Stack spacing={1}>
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          발신번호 위탁서
+                        </Typography>
+                        <Upload file={item.delegator_consign_file || item.delegator_consign_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['delegator_consign_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['delegator_consign_img']: '',
+                              ['delegator_consign_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                      </Stack>
+                    </Stack>
+                  </Card>
+                </Grid>
+              </>}
+            {currentTab == 2 &&
+              <>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <Stack spacing={1}>
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          사업자등록증
+                        </Typography>
+                        <Upload file={item.mandatary_bsin_lic_file || item.mandatary_bsin_lic_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['mandatary_bsin_lic_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['mandatary_bsin_lic_img']: '',
+                              ['mandatary_bsin_lic_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                      </Stack>
+                      <Stack spacing={1}>
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          대리인지정위임장
+                        </Typography>
+                        <Upload file={item.mandatary_warrant_file || item.mandatary_warrant_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['mandatary_warrant_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['mandatary_warrant_img']: '',
+                              ['mandatary_warrant_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                      </Stack>
+                    </Stack>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <Stack spacing={1}>
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          법인인감증명서
+                        </Typography>
+                        <Upload file={item.mandatary_seal_file || item.mandatary_seal_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['mandatary_seal_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['mandatary_seal_img']: '',
+                              ['mandatary_seal_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                      </Stack>
+                      <Stack spacing={1}>
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          대리인의 재직증명서
+                        </Typography>
+                        <Upload file={item.mandatary_agent_serve_file || item.mandatary_agent_serve_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['mandatary_agent_serve_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['mandatary_agent_serve_img']: '',
+                              ['mandatary_agent_serve_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                      </Stack>
                     </Stack>
                   </Card>
                 </Grid>

@@ -103,7 +103,27 @@ export const apiManager = (table, type, params) => {
         return deleteItem(`${base_url}/${table}/${params?.id}`);
     }
 }
-
+export const apiApiServer = (table, type, params) => {
+    let obj = settingParams(table, type, params);
+    let pathname = window.location.pathname;
+    
+    let base_url = `${process.env.API_URL}/api`;
+    if (type == 'get') {
+        return get(`${base_url}/${table}/${params?.id}`);
+    }
+    if (type == 'list') {
+        return get(`${base_url}/${table}`, obj);
+    }
+    if (type == 'create') {
+        return post(`${base_url}/${table}`, obj);
+    }
+    if (type == 'update') {
+        return put(`${base_url}/${table}/${params?.id}`, obj);
+    }
+    if (type == 'delete') {
+        return deleteItem(`${base_url}/${table}/${params?.id}`);
+    }
+}
 const settingdeleteImageObj = (obj_) => {//이미지 존재안할시 삭제함
     let obj = obj_;
     let keys = Object.keys(obj);

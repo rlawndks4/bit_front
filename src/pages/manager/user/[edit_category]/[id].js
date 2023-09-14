@@ -63,7 +63,9 @@ const UserEdit = () => {
   }
   const onSave = async () => {
     let result = undefined
+    console.log(ipList)
     if (item?.id) {//수정
+
       result = await apiManager('users', 'update', { ...item, ip_list: ipList });
     } else {//추가
       result = await apiManager('users', 'create', { ...item, ip_list: ipList });
@@ -212,7 +214,9 @@ const UserEdit = () => {
                                   value={ip?.ip}
                                   onChange={(e) => {
                                     let ip_list = [...ipList];
-                                    ip_list[idx].ip = e.target.value;
+                                    console.log(ip_list)
+                                    ip_list[idx]['ip'] = e.target.value;
+                                    console.log(ip_list)
                                     setIpList(ip_list);
                                   }}
                                 />
@@ -230,7 +234,7 @@ const UserEdit = () => {
                       <Button variant="outlined" onClick={() => {
                         setIpList([
                           ...ipList,
-                          [{ ip: '' }]
+                          ...[{ ip: '' }]
                         ])
                       }}>추가</Button>
                     </Stack>
