@@ -13,6 +13,7 @@ const req_table_body = [
     ['sender', '발신자 전화번호 (최대 16bytes)', 'O', 'String'],
     ['receiver', '수신자 전화번호 - 컴마(,)분기 입력으로 최대 1천명', 'O', 'String'],
     ['msg', '메시지 내용', 'O', 'String (1~2,000Byte)'],
+    ['title', '메시지 제목 (LMS, MMS 에서 사용가능)', 'X', 'String (1~2,000Byte)'],
     ['image1', '첨부이미지', 'X', 'JPEG,PNG,GIF'],
     ['image2', '첨부이미지', 'X', 'JPEG,PNG,GIF'],
     ['image3', '첨부이미지', 'X', 'JPEG,PNG,GIF'],

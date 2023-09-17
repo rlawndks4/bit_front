@@ -69,6 +69,19 @@ const navConfig = () => {
         },
       ],
     },
+    {
+      items: [
+        {
+          title: '예치금관리',
+          path: PATH_MANAGER.deposit.root,
+          icon: ICONS.user,
+          children: [
+            { title: '예치금관리', path: PATH_MANAGER.deposit.list },
+            { title: '예치금추가', path: PATH_MANAGER.deposit.add },
+          ],
+        },
+      ],
+    },
     // {
     //   items: [
     //     {

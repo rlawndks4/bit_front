@@ -24,6 +24,11 @@ export const PATH_MANAGER = {
     list: path(ROOTS_MANAGER, '/sender/list'),
     add: path(ROOTS_MANAGER, '/sender/add'),
   },
+  deposit: {
+    root: path(ROOTS_MANAGER, '/deposit'),
+    list: path(ROOTS_MANAGER, '/deposit/list'),
+    add: path(ROOTS_MANAGER, '/deposit/add'),
+  },
   post: {
     root: path(ROOTS_MANAGER, '/post'),
     list: path(ROOTS_MANAGER, '/post/list'),

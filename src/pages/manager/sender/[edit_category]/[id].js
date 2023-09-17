@@ -1,5 +1,5 @@
 
-import { Button, Card, FormControl, Grid, IconButton, InputLabel, OutlinedInput, Stack, TextField, Typography } from "@mui/material";
+import { Button, Card, FormControl, Grid, IconButton, InputLabel, MenuItem, OutlinedInput, Select, Stack, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Row, themeObj } from "src/components/elements/styled-components";
@@ -45,6 +45,7 @@ const SenderEdit = () => {
     sender: '',
     user_name: '',
     note: '',
+    status: 0,
     delegator_tel_sub_file: undefined,
     delegator_bsin_lic_file: undefined,
     delegator_consign_file: undefined,
@@ -120,6 +121,21 @@ const SenderEdit = () => {
                             }
                           )
                         }} />
+                      <FormControl>
+                        <InputLabel>쇼핑몰 데모넘버</InputLabel>
+                        <Select label='쇼핑몰 데모넘버' value={item.status} onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['status']: e.target.value
+                            }
+                          )
+                        }}>
+                          <MenuItem value={0}>정상</MenuItem>
+                          <MenuItem value={1}>검토중</MenuItem>
+                          <MenuItem value={2}>차단됨</MenuItem>
+                        </Select>
+                      </FormControl>
                     </Stack>
                   </Card>
                 </Grid>

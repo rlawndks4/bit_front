@@ -54,6 +54,13 @@ const UserList = () => {
       }
     },
     {
+      id: 'total_deposit',
+      label: '예치금액',
+      action: (row) => {
+        return commarNumber(row['total_deposit'])
+      }
+    },
+    {
       id: 'api_key',
       label: 'API KEY',
       action: (row) => {
