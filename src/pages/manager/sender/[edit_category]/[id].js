@@ -122,8 +122,8 @@ const SenderEdit = () => {
                           )
                         }} />
                       <FormControl>
-                        <InputLabel>쇼핑몰 데모넘버</InputLabel>
-                        <Select label='쇼핑몰 데모넘버' value={item.status} onChange={(e) => {
+                        <InputLabel>상태</InputLabel>
+                        <Select label='상태' value={item.status} onChange={(e) => {
                           setItem(
                             {
                               ...item,
