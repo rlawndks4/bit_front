@@ -8,11 +8,7 @@ export default function Index() {
   const router = useRouter();
   const { user } = useAuthContext();
   useEffect(() => {
-    if(user){
       router.push('/user/home');
-    }else{
-      router.push('/user/login');
-    }
   }, [user]);
   return null;
 }

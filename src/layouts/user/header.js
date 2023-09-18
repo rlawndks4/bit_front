@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { useRouter } from "next/router";
 import { useAuthContext } from "src/auth/useAuthContext";
 import { Row } from "src/components/elements/styled-components";
@@ -53,7 +53,7 @@ position:relative;
 
 const Header = (props) => {
     const router = useRouter();
-    const { logout } = useAuthContext();
+    const { logout, user } = useAuthContext();
     const { themeDnsData } = useSettingsContext();
 
     console.log(zBottomMenu)
@@ -73,12 +73,25 @@ const Header = (props) => {
                             </>
                         ))}
                     </Row>
-                    <IconButton onClick={async () => {
-                        let result = await logout();
-                        window.location.href = '/'
-                    }}>
-                        <Icon icon={'ant-design:logout-outlined'} style={{ color: themeDnsData?.theme_css?.main_color }} />
-                    </IconButton>
+                    {user ?
+                        <>
+                            <IconButton onClick={async () => {
+                                let result = await logout();
+                                window.location.href = '/'
+                            }}>
+                                <Icon icon={'ant-design:logout-outlined'} style={{ color: themeDnsData?.theme_css?.main_color }} />
+                            </IconButton>
+                        </>
+                        :
+                        <>
+                            <Row style={{ alignItems: 'center', columnGap: '1rem' }}>
+                                <Button variant="outlined">회원가입</Button>
+                                <Button variant="outlined" onClick={()=>{
+                                    router.push('/user/login')
+                                }}>로그인</Button>
+                            </Row>
+                        </>}
+
                 </Row>
             </Wrappers>
             <PaddingTop />

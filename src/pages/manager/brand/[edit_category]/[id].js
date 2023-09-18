@@ -72,6 +72,10 @@ const BrandEdit = () => {
       value: 2,
       label: '회사정보'
     },
+    {
+      value: 3,
+      label: '예치금차감설정'
+    },
   ]
 
   useEffect(() => {
@@ -281,7 +285,7 @@ const BrandEdit = () => {
                                   img_src = await img_src.split(`"></p>`);
                                   let base64 = img_src[0];
                                   img_src = await base64toFile(img_src[0], 'note.png');
-                                  const response = await apiManager('upload/single','create',{
+                                  const response = await apiManager('upload/single', 'create', {
                                     post_file: img_src
                                   });
                                   note = await note.replace(base64, response?.url)
@@ -483,6 +487,91 @@ const BrandEdit = () => {
                             {
                               ...item,
                               ['fax_num']: e.target.value
+                            }
+                          )
+                        }} />
+                    </Stack>
+                  </Card>
+                </Grid>
+              </>}
+            {currentTab == 3 &&
+              <>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <TextField
+                        label='sms'
+                        value={item.setting_obj?.sms ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['setting_obj']: {
+                                ...item.setting_obj,
+                                ['sms']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='lms'
+                        value={item.setting_obj?.lms ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['setting_obj']: {
+                                ...item.setting_obj,
+                                ['lms']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='mms'
+                        value={item.setting_obj?.mms ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['setting_obj']: {
+                                ...item.setting_obj,
+                                ['mms']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                    </Stack>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <TextField
+                        label='at'
+                        value={item.setting_obj?.at ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['setting_obj']: {
+                                ...item.setting_obj,
+                                ['at']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='ai'
+                        value={item.setting_obj?.ai ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['setting_obj']: {
+                                ...item.setting_obj,
+                                ['ai']: e.target.value
+                              }
                             }
                           )
                         }} />

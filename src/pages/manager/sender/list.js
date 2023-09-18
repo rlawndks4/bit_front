@@ -7,7 +7,7 @@ import { Col, Row } from "src/components/elements/styled-components";
 import { toast } from "react-hot-toast";
 import { useModal } from "src/components/dialog/ModalProvider";
 import ManagerLayout from "src/layouts/manager/ManagerLayout";
-import { apiManager } from "src/utils/api-manager";
+import { apiApiServer, apiManager } from "src/utils/api-manager";
 import { useAuthContext } from "src/auth/useAuthContext";
 import { commarNumber, returnMoment } from "src/utils/function";
 const SenderList = () => {
@@ -69,6 +69,30 @@ const SenderList = () => {
       }
     },
     {
+      id: 'test_send',
+      label: '테스트발송',
+      action: (row) => {
+        if (user?.level < row?.level) {
+          return "---"
+        }
+        return (
+          <>
+            <IconButton onClick={() => {
+              setDialogObj({ ...dialogObj, testSend: true })
+              setTestSendObj({
+                text: '',
+                user_id: row?.user_name,
+                api_key: row?.api_key,
+                sender: row?.sender,
+              })
+            }}>
+              <Icon icon='grommet-icons:test' />
+            </IconButton>
+          </>
+        )
+      }
+    },
+    {
       id: 'edit',
       label: '수정/삭제',
       action: (row) => {
@@ -93,7 +117,7 @@ const SenderList = () => {
       }
     },
   ]
- 
+
   const router = useRouter();
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState({});
@@ -103,6 +127,13 @@ const SenderList = () => {
     s_dt: '',
     e_dt: '',
     search: '',
+  })
+  const [dialogObj, setDialogObj] = useState({
+    testSend: false,
+  })
+  const [testSendObj, setTestSendObj] = useState({
+    id: '',
+    text: ''
   })
   useEffect(() => {
     pageSetting();
@@ -129,9 +160,96 @@ const SenderList = () => {
       onChangePage(searchObj);
     }
   }
- 
+  const onTestSend = async () => {
+    console.log(testSendObj)
+    let result = await apiApiServer(`msg/v1/send`,'create', {
+      api_key: testSendObj.api_key,
+      user_id: testSendObj.user_id,
+      sender: testSendObj.sender,
+      receiver: '01029522667',
+      msg: testSendObj.text,
+    })
+    if (result) {
+      toast.success("성공적으로 전송 되었습니다.");
+      setDialogObj({
+        ...dialogObj,
+        testSend: false
+      })
+      setTestSendObj({
+        id: '',
+        text: '',
+        receiver:'',
+      })
+    }
+  }
   return (
     <>
+      <Dialog
+        open={dialogObj.testSend}
+        onClose={() => {
+          setDialogObj({
+            ...dialogObj,
+            testSend: false
+          })
+          setTestSendObj({
+            id: '',
+            text: '',
+            receiver:'',
+          })
+        }}
+      >
+        <DialogTitle>{`테스트발송`}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            테스트발송할 텍스트를 입력해 주세요.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            fullWidth
+            value={testSendObj?.receiver}
+            margin="dense"
+            label="수신자 전화번호"
+            onChange={(e) => {
+              setTestSendObj({
+                ...testSendObj,
+                receiver: e.target.value
+              })
+
+            }}
+          />
+          <TextField
+            fullWidth
+            value={testSendObj.text}
+            margin="dense"
+            label="텍스트"
+            onChange={(e) => {
+              setTestSendObj({
+                ...testSendObj,
+                text: e.target.value
+              })
+
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={onTestSend}>
+            전송
+          </Button>
+          <Button color="inherit" onClick={() => {
+            setDialogObj({
+              ...dialogObj,
+              testSend: false
+            })
+            setTestSendObj({
+              id: '',
+              text: '',
+              receiver:'',
+            })
+          }}>
+            취소
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Stack spacing={3}>
         <Card>
           <ManagerTable

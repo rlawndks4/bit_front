@@ -1,6 +1,7 @@
 import { toast } from "react-hot-toast";
 import axios from "./axios";
 import { serialize } from 'object-to-formdata';
+import { getLocalStorage } from "./local-storage";
 
 export const post = async (url, obj) => {
     try {
@@ -85,8 +86,12 @@ export const get = async (url, params) => {
 export const apiManager = (table, type, params) => {
     let obj = settingParams(table, type, params);
     let pathname = window.location.pathname;
-    
+    let dns_data = getLocalStorage('themeDnsData');
+    dns_data = JSON.parse(dns_data);
     let base_url = `/api`;
+    if (!(obj?.brand_id > 0)) {
+        obj['brand_id'] = dns_data?.id;
+      }
     if (type == 'get') {
         return get(`${base_url}/${table}/${params?.id}`);
     }
