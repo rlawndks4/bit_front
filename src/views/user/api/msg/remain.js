@@ -19,7 +19,7 @@ const res_table_head = [
 const res_table_body = [
     ['code', '결과코드(API 수신유무)', 'Integer'],
     ['message', '결과 메시지( code 가 0 보다 작은경우 실패사유 표기)', 'String'],
-    ['data', '리턴값', 'Array'],
+    ['data', '리턴값', 'Object'],
 ]
 const res_data_table_head = [
     '키',
