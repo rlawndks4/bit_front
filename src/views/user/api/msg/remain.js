@@ -8,7 +8,8 @@ const req_table_head = [
     '타입',
 ];
 const req_table_body = [
-
+    ['api_key', '인증용 API Key', 'O', 'String'],
+    ['user_id', '사용자id', 'O', 'String'],
 ]
 const res_table_head = [
     '키',
@@ -16,7 +17,20 @@ const res_table_head = [
     '타입',
 ];
 const res_table_body = [
-
+    ['code', '결과코드(API 수신유무)', 'Integer'],
+    ['message', '결과 메시지( code 가 0 보다 작은경우 실패사유 표기)', 'String'],
+    ['data', '리턴값', 'Array'],
+]
+const res_data_table_head = [
+    '키',
+    '설명',
+    '타입',
+];
+const res_data_table_body = [
+    ['SMS_CNT', '단문전송시 발송가능한건수', 'Integer'],
+    ['LMS_CNT', '장문전송시 발송가능한건수', 'Integer'],
+    ['MMS_CNT', '그림(사진)전송시 발송가능한건수', 'Integer'],
+    ['TOTAL_DEPOSIT', '보유중인 예치금', 'Integer'],
 ]
 const MsgRemain = (props) => {
     return (
@@ -96,6 +110,37 @@ const MsgRemain = (props) => {
                 </TableHead>
                 <TableBody>
                     {res_table_body.map(col => (
+                        <>
+                            <TableRow sx={{ padding: '1rem 0' }}>
+                                {col && col.map(row => (
+                                    <>
+                                        <TableCell style={{ textAlign: 'center' }}>
+                                            {row}
+                                        </TableCell>
+                                    </>
+                                ))}
+                            </TableRow>
+                        </>
+                    ))}
+                </TableBody>
+            </Table>
+            <Title3 style={{ fontWeight: 'normal', color: '#777' }}>
+                data JSON 구성입니다.
+            </Title3>
+            <Table style={{ border: '1px solid #ccc' }}>
+                <TableHead>
+                    <TableRow sx={{ padding: '1rem 0' }}>
+                        {res_data_table_head.map(text => (
+                            <>
+                                <TableCell style={{ textAlign: 'center' }}>
+                                    {text}
+                                </TableCell>
+                            </>
+                        ))}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {res_data_table_body.map(col => (
                         <>
                             <TableRow sx={{ padding: '1rem 0' }}>
                                 {col && col.map(row => (
