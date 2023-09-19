@@ -29,6 +29,10 @@ const tab_list = [
     value: 1,
     label: '허용 IP',
   },
+  {
+    value: 2,
+    label: '예치금차감설정'
+  },
 ]
 const UserEdit = () => {
   const { setModal } = useModal()
@@ -44,6 +48,8 @@ const UserEdit = () => {
     nickname: '',
     phone_num: '',
     note: '',
+    setting_obj: {
+    },
   })
   const [ipList, setIpList] = useState([]);
 
@@ -237,6 +243,91 @@ const UserEdit = () => {
                           ...[{ ip: '' }]
                         ])
                       }}>추가</Button>
+                    </Stack>
+                  </Card>
+                </Grid>
+              </>}
+              {currentTab == 2 &&
+              <>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <TextField
+                        label='sms'
+                        value={item.setting_obj?.sms ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['setting_obj']: {
+                                ...item.setting_obj,
+                                ['sms']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='lms'
+                        value={item.setting_obj?.lms ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['setting_obj']: {
+                                ...item.setting_obj,
+                                ['lms']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='mms'
+                        value={item.setting_obj?.mms ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['setting_obj']: {
+                                ...item.setting_obj,
+                                ['mms']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                    </Stack>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <TextField
+                        label='at'
+                        value={item.setting_obj?.at ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['setting_obj']: {
+                                ...item.setting_obj,
+                                ['at']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='ai'
+                        value={item.setting_obj?.ai ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['setting_obj']: {
+                                ...item.setting_obj,
+                                ['ai']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
                     </Stack>
                   </Card>
                 </Grid>
