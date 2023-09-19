@@ -179,6 +179,21 @@ const UserList = () => {
       }
     },
     {
+      id: 'permit_ips',
+      label: '예치금차감설정',
+      action: (row) => {
+        return (
+          <>
+            <IconButton onClick={() => {
+              router.push(`edit/${row?.id}?type=2`)
+            }}>
+              <Icon icon='vaadin:money-deposit' />
+            </IconButton>
+          </>
+        )
+      }
+    },
+    {
       id: 'edit_password',
       label: '비밀번호 변경',
       action: (row) => {
