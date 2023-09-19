@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Card, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, Stack, TextField, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Card, Chip, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import ManagerTable from "src/sections/manager/table/ManagerTable";
 import { Icon } from "@iconify/react";
@@ -56,9 +56,16 @@ const DepositList = () => {
     },
     {
       id: 'type',
-      label: '타입',
+      label: '추가/감소',
       action: (row) => {
-        return row['type_str'] ?? "---"
+        if (row.type == 0) {
+          return <Chip variant="soft" label='추가건' color="success" />
+        } else if (row.type == 1) {
+          return <Chip variant="soft" label='감소건' color="error" />
+        } else {
+          return "---"
+
+        }
       }
     },
     {
