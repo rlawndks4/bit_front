@@ -64,7 +64,13 @@ const SenderEdit = () => {
         id: router.query.id
       })
       setItem(data);
+    } else {
+      setItem({
+        ...item,
+        user_name: router.query?.user_name
+      })
     }
+
     setLoading(false);
   }
   const onSave = async () => {

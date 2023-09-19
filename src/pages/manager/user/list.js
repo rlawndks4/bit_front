@@ -149,7 +149,22 @@ const UserList = () => {
       }
     },
     {
-      id: 'edit_password',
+      id: 'sender_add',
+      label: '발신자추가',
+      action: (row) => {
+        return (
+          <>
+            <IconButton onClick={() => {
+              router.push(`/manager/sender/add?user_name=${row?.user_name}`)
+            }}>
+              <Icon icon='bi:send-plus' />
+            </IconButton>
+          </>
+        )
+      }
+    },
+    {
+      id: 'permit_ips',
       label: '허용IP설정',
       action: (row) => {
         return (
