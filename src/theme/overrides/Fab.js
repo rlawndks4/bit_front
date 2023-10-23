@@ -84,7 +84,6 @@ export default function Fab(theme) {
     const colorStyle = COLORS.map((color) => ({
       ...(ownerState.color === color && {
         ...((circularVariant || extendedVariant) && {
-          boxShadow: theme.customShadows[color],
           '&:hover': {
             backgroundColor: theme.palette[color].dark,
           },
