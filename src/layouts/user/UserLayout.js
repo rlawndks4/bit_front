@@ -8,6 +8,7 @@ import styled from "styled-components";
 import ScrollToTop from "src/components/scroll-to-top";
 import { Fab } from "@mui/material";
 import { Icon } from "@iconify/react";
+import Footer from "./footer";
 
 const UserLayout = ({ children }) => {
     const { themeDnsData } = useSettingsContext();
@@ -24,6 +25,7 @@ const UserLayout = ({ children }) => {
                 <>
                     <Header />
                     {children}
+                    <Footer />
                     <BottomMenu />
                     <ScrollToTop className='mui-fixed'>
                         <Fab size='small' aria-label='scroll back to top'>

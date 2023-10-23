@@ -1,14 +1,2 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useAuthContext } from 'src/auth/useAuthContext';
-
-// ----------------------------------------------------------------------
-
-export default function Index() {
-  const router = useRouter();
-  const { user } = useAuthContext();
-  useEffect(() => {
-    router.push('/user/home');
-  }, [user]);
-  return null;
-}
+import Home from "./home";
+export default Home;

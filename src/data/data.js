@@ -33,15 +33,31 @@ export const zTabMenu = {
   'service-info': [
     {
       title: '문자',
+      banner: {
+        title: '문자',
+        sub_title: '가장 편하고 빠르게 문자를 전송합니다',
+      },
     },
     {
       title: '선거문자',
+      banner: {
+        title: '선거문자',
+        sub_title: '후보님의 당선을 기원합니다',
+      },
     },
     {
       title: '알림톡',
+      banner: {
+        title: '알림톡',
+        sub_title: '이제 카카오 알림톡으로 보내세요',
+      },
     },
     {
       title: '친구톡',
+      banner: {
+        title: '친구톡',
+        sub_title: '이제 광고성 메시지도 보내세요',
+      },
     },
   ],
   'api': [
@@ -76,12 +92,24 @@ export const zTabMenu = {
   'help': [
     {
       title: '문의하기',
+      banner: {
+        title: '문의하기',
+        sub_title: '',
+      },
     },
     {
       title: '기능요청',
+      banner: {
+        title: '기능요청',
+        sub_title: '',
+      },
     },
     {
       title: '문의내역',
+      banner: {
+        title: '문의내역',
+        sub_title: '',
+      },
     },
   ]
 }

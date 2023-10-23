@@ -148,7 +148,9 @@ const Login = () => {
                     <Row style={{ height: '100vh' }}>
                         <StyledContent style={{ margin: 'auto', zIndex: '20' }}>
                             <Stack sx={{ width: 1 }}>
-                                <img src={logoSrc()} style={{ maxWidth: '200px', margin: '1rem auto' }} />
+                                <img src={logoSrc()} style={{ maxWidth: '200px', margin: '1rem auto' }} onClick={()=>{
+                                    router.push('/')
+                                }}/>
                                 <Stack spacing={3}>
                                     <TextField
                                         name="username"
