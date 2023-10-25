@@ -1,12 +1,13 @@
 import { Icon } from "@iconify/react";
 import { Button, Chip, IconButton } from "@mui/material";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "src/auth/useAuthContext";
 import { Col, Row } from "src/components/elements/styled-components";
 import Logo from "src/components/logo/Logo";
 import { useSettingsContext } from "src/components/settings";
 import { zBottomMenu } from "src/data/data";
+import { apiManager } from "src/utils/api-manager";
 import { commarNumber } from "src/utils/function";
 import styled from "styled-components";
 
@@ -19,12 +20,13 @@ left:0;
 z-index:30;
 background:#fff;
 border-bottom:0.1rem solid #e6e6e6;
+padding: 0.5rem;
 `
 
 const PaddingTop = styled.div`
-padding-top: 73.6px;
+padding-top: 91.2px;
 @media (max-width:800px) {
-    padding-top: 40px;
+    padding-top: 53.2px;
   }
 `
 const Menu = styled.div`
@@ -57,11 +59,14 @@ const Header = (props) => {
 
     const { logout, user } = useAuthContext();
     const { themeDnsData } = useSettingsContext();
-
+    const [deposit, setDeposit] = useState(0);
     useEffect(() => {
-
+        getDeposit();
     }, []);
-
+    const getDeposit = async () => {
+        let result = await apiManager('auth','get',{id:'deposit'});
+        setDeposit(result?.deposit??0);
+    }
     return (
         <>
             <Wrappers>
@@ -86,7 +91,7 @@ const Header = (props) => {
                                         <Icon icon={'bxs:user'} />
                                         <div>{user?.nickname} ({user?.user_name})</div>
                                     </Row>
-                                    <Chip label={`잔여포인트: ${commarNumber(100000)}P`} size="small" variant="outlined" />
+                                    <Chip label={`잔여포인트: ${commarNumber(deposit)}P`} size="small" variant="outlined" />
                                 </Col>
                                 <Button variant="outlined" onClick={async () => {
                                     let result = await logout();

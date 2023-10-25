@@ -9,7 +9,7 @@ import styled from "styled-components";
 const BannerContainer = styled.div`
     width:100%;
     padding: 80px 0;
-    background-image: url('/assets/images/background/help-bg.avif');
+    background-image: url('/assets/images/contact/hero.jpg');
     background-size: cover;
     display:flex;
     flex-direction:column;

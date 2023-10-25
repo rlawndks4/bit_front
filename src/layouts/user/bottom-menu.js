@@ -55,31 +55,32 @@ font-weight:400;
 const BottomMenu = () => {
     const { themeDnsData } = useSettingsContext();
     const router = useRouter();
+    const [asPath, setAsPath] = useState("")
+    useEffect(() => {
+        setAsPath(router.asPath);
+    }, [router])
     return (
         <>
 
             <Container className='menu-container'>
                 <MenuContainer>
-                    <OneMenuContainer onClick={() => { router.push('/user/home') }} style={{ color: `${router.asPath.includes('/user/home') ? themeDnsData?.theme_css?.main_color : '#ababab'}` }} key={'#'}>
+                    <OneMenuContainer onClick={() => { router.push('/user/home') }} style={{ color: `${asPath.includes('/user/home') ? themeDnsData?.theme_css?.main_color : '#ababab'}` }} key={'#'}>
                         <img src={themeDnsData?.logo_img} style={{ height: '24px', width: 'auto' }} />
                         <OneMenuName>
                             홈
                         </OneMenuName>
                     </OneMenuContainer>
-                    {zBottomMenu.map((item, index) => (
-                        <>
-                            <OneMenuContainer onClick={() => { router.push(item.link) }} style={{ color: `${router.asPath.includes(item.allowLink) ? themeDnsData?.theme_css?.main_color : '#ababab'}` }} key={index}>
-                                {item.icon}
-                                <OneMenuName>
-                                    {item.name}
-                                </OneMenuName>
-                            </OneMenuContainer>
-                        </>
-                    ))}
+                    {zBottomMenu.map((item, index) => {
+                        return <OneMenuContainer onClick={() => { router.push(item.link) }} style={{ color: `${asPath.includes(item.allowLink) ? themeDnsData?.theme_css?.main_color : '#ababab'}` }} key={index}>
+                            {item.icon}
+                            <OneMenuName>
+                                {item.name}
+                            </OneMenuName>
+                        </OneMenuContainer>
+                    })}
                 </MenuContainer>
             </Container>
         </>
-
     )
 }
 

@@ -9,12 +9,14 @@ import styled from "styled-components";
 const BannerContainer = styled.div`
     width:100%;
     padding: 80px 0;
-    background-image: url('/assets/images/background/service-info-bg.avif');
+    background-image: url('/assets/background/overlay_4.jpg');
     background-size: cover;
     display:flex;
     flex-direction:column;
 `
+export const service_info_content = [
 
+];
 const ServiceInfo = () => {
     const router = useRouter();
     const [currentTab, setCurrentTab] = useState(0);

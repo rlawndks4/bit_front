@@ -11,9 +11,9 @@ export const defaultSettings = {
   themeDnsData: {
     id: 1,
     name: '문자',
-    logo_img: '/logo/logo.jpg',
-    dark_logo_img: '/logo/logo.jpg',
-    favicon_img: '/logo/logo.jpg',
+    logo_img: '',
+    dark_logo_img: '',
+    favicon_img: '',
     theme_css: {
       main_color: '#0a0a5c'
     },

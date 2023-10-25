@@ -44,8 +44,8 @@ const LINKS = [
 
 export default function Footer() {
   const { pathname } = useRouter();
-
-  const isHome = pathname === '/' || pathname === '/user/home' || pathname === '/user';
+  console.log(window.innerWidth)
+  const isHome = (pathname === '/' || pathname === '/user/home' || pathname === '/user' || window.innerWidth <= 800);
 
   const simpleFooter = (
     <Box
@@ -55,6 +55,7 @@ export default function Footer() {
         textAlign: 'center',
         position: 'relative',
         bgcolor: 'background.default',
+        paddingBottom: `${window.innerWidth <= 800 ? '80px' : ''}`
       }}
     >
       <Container>
@@ -98,7 +99,7 @@ export default function Footer() {
 
           <Grid item xs={8} md={3}>
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-             
+
             </Typography>
           </Grid>
 
