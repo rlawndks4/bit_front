@@ -80,7 +80,7 @@ export default function HomeForDesigner() {
             </Grid>
 
             <Grid item md={6}>
-              <StyledContent src="/assets/images/home/for_designer.jpg" variants={varFade().in} />
+              <StyledContent src="/assets/images/home-slide/banner3.jpg" variants={varFade().in} />
             </Grid>
           </Grid>
         </Container>
@@ -111,7 +111,7 @@ function Description() {
           variant="h2"
           sx={{
             mt: 3,
-            mb: 5,
+            mb: 3,
             ...textGradient(
               `300deg, ${theme.palette.primary.main} 0%, ${theme.palette.warning.main} 100%`
             ),

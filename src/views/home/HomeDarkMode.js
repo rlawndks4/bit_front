@@ -53,7 +53,7 @@ export default function HomeDarkMode() {
         <m.div variants={varFade().inUp}>
           <Image
             alt="darkmode"
-            src="/assets/images/home/darkmode.jpg"
+            src="/assets/images/home-slide/banner4.png"
             sx={{
               borderRadius: 2,
               my: { xs: 5, md: 10 },

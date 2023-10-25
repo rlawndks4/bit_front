@@ -37,7 +37,7 @@ const MsgRemain = (props) => {
         <>
             <Title2 style={{ margin: '1rem 0' }}>발송가능건수</Title2>
             <Title3 style={{ fontWeight: 'normal', color: '#777' }}>
-                보유한 잔여포인트로 발송가능한 잔여건수를 문자구분(유형)별로 조회하실 수 있습니다.<br/>
+                보유한 잔여예치금으로 발송가능한 잔여건수를 문자구분(유형)별로 조회하실 수 있습니다.<br/>
                 SMS, LMS, MMS로 발송시 가능한 잔여건수이며 남은 충전금을 문자유형별로 보냈을 경우 가능한 잔여건입니다.<br/>
                 예를들어 SMS_CNT : 11 , LMS_CNT : 4 인 경우 단문전송시 11건이 가능하고, 장문으로 전송시 4건이 가능합니다.<br/>
             </Title3>

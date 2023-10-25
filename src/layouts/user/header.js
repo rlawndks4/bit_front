@@ -91,7 +91,7 @@ const Header = (props) => {
                                         <Icon icon={'bxs:user'} />
                                         <div>{user?.nickname} ({user?.user_name})</div>
                                     </Row>
-                                    <Chip label={`잔여포인트: ${commarNumber(deposit)}P`} size="small" variant="outlined" />
+                                    <Chip label={`잔여예치금: ${commarNumber(deposit)}P`} size="small" variant="outlined" />
                                 </Col>
                                 <Button variant="outlined" onClick={async () => {
                                     let result = await logout();

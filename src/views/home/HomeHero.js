@@ -254,18 +254,17 @@ function Content() {
           component={m.img}
           animate={{ y: ['0%', '100%'] }}
           transition={transition}
-          alt={`hero_${isLight ? 'light' : 'dark'}_1`}
-          src={`/assets/images/home/hero_${isLight ? 'light' : 'dark'}_1.png`}
+          src={`/assets/images/home-slide/banner1.jpg`}
           sx={{ position: 'absolute' }}
         />
         <Box
           component={m.img}
           animate={{ y: ['-100%', '0%'] }}
           transition={transition}
-          alt={`hero_${isLight ? 'light' : 'dark'}_1`}
-          src={`/assets/images/home/hero_${isLight ? 'light' : 'dark'}_1.png`}
+          src={`/assets/images/home-slide/banner1.jpg`}
           sx={{ position: 'absolute' }}
         />
+        
       </Stack>
 
       <Stack
@@ -277,16 +276,14 @@ function Content() {
           component={m.img}
           animate={{ y: ['100%', '0%'] }}
           transition={transition}
-          alt={`hero_${isLight ? 'light' : 'dark'}_2`}
-          src={`/assets/images/home/hero_${isLight ? 'light' : 'dark'}_2.png`}
+          src={`/assets/images/home-slide/banner2.jpg`}
           sx={{ position: 'absolute' }}
         />
         <Box
           component={m.img}
           animate={{ y: ['0%', '-100%'] }}
           transition={transition}
-          alt={`hero_${isLight ? 'light' : 'dark'}_2`}
-          src={`/assets/images/home/hero_${isLight ? 'light' : 'dark'}_2.png`}
+          src={`/assets/images/home-slide/banner2.jpg`}
           sx={{ position: 'absolute' }}
         />
       </Stack>
