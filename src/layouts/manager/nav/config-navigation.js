@@ -72,6 +72,19 @@ const navConfig = () => {
     {
       items: [
         {
+          title: '카카오채널관리',
+          path: PATH_MANAGER.kakaoChannel.root,
+          icon: ICONS.user,
+          children: [
+            { title: '카카오채널관리', path: PATH_MANAGER.kakaoChannel.list },
+            { title: '카카오채널추가', path: PATH_MANAGER.kakaoChannel.add },
+          ],
+        },
+      ],
+    },
+    {
+      items: [
+        {
           title: '예치금관리',
           path: PATH_MANAGER.deposit.root,
           icon: ICONS.user,

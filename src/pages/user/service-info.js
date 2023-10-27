@@ -15,7 +15,10 @@ const BannerContainer = styled.div`
     flex-direction:column;
 `
 export const service_info_content = [
-
+    {img:'', title:'', note:''},
+    {img:'', title:'', note:''},
+    {img:'', title:'', note:''},
+    {img:'', title:'', note:''},
 ];
 const ServiceInfo = () => {
     const router = useRouter();

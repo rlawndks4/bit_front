@@ -11,7 +11,7 @@ const Container = styled.aside`
     right: 0;
     bottom: -1px;
     left: 0;
-    z-index: 5;
+    z-index: 15;
     display:none;
     width:100%;
     max-width:800px;
