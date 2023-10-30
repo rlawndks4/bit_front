@@ -1,6 +1,7 @@
-import { Tab, Tabs } from "@mui/material";
+import { Stack, Tab, Tabs, TextField } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useAuthContext } from "src/auth/useAuthContext";
 import { Col, Row, Title, Title2, Title3, Wrappers } from "src/components/elements/styled-components";
 import { zTabMenu } from "src/data/data";
 import UserLayout from "src/layouts/user/UserLayout";
@@ -17,9 +18,22 @@ const BannerContainer = styled.div`
 
 const Help = () => {
     const router = useRouter();
+
+    const { user } = useAuthContext();
     const [currentTab, setCurrentTab] = useState(0);
+    const [questObj, setQuestObj] = useState({
+        title: '',
+        note: ''
+    })
     useEffect(() => {
+        if (!user) {
+            router.push('/user/login')
+        }
         setCurrentTab(parseInt(router.query?.type ?? 0));
+        setQuestObj({
+            title: '',
+            note: ''
+        })
     }, [router.query])
     return (
         <>
@@ -35,41 +49,95 @@ const Help = () => {
             </BannerContainer>
             <Wrappers>
 
-                <Tabs
-                    indicatorColor='primary'
-                    textColor='primary'
-                    scrollButtons='false'
-                    value={currentTab}
-                    sx={{
-                        width: '100%',
-                        margin: '2rem 0',
-                    }}
-                >
-                    {zTabMenu['help'].map((item, idx) => {
-                        return <>
-                            <Tab value={idx} label={item.title} style={{ flexGrow: 1 }} onClick={() => {
-                                router.push(`/user/help?type=${idx}`)
-                            }} />
-                        </>
-                    })}
 
-                </Tabs>
-                {currentTab == 0 &&
+                {user ?
+                    <>
+                        <Tabs
+                            indicatorColor='primary'
+                            textColor='primary'
+                            scrollButtons='false'
+                            value={currentTab}
+                            sx={{
+                                width: '100%',
+                                margin: '2rem 0',
+                            }}
+                        >
+                            {zTabMenu['help'].map((item, idx) => {
+                                return <>
+                                    <Tab value={idx} label={item.title} style={{ flexGrow: 1 }} onClick={() => {
+                                        router.push(`/user/help?type=${idx}`)
+                                    }} />
+                                </>
+                            })}
+
+                        </Tabs>
+                        {currentTab == 0 &&
+                            <>
+                                <Stack spacing={3}>
+                                    <TextField
+                                        label="제목"
+                                        value={questObj.title}
+                                        onChange={(e) => {
+                                            setQuestObj({
+                                                ...questObj,
+                                                ['title']: e.target.value
+                                            })
+                                        }}
+                                    />
+                                    <TextField
+                                        fullWidth
+                                        label="문의 내용"
+                                        multiline
+                                        rows={4}
+                                        value={questObj.note}
+                                        onChange={(e) => {
+                                            setQuestObj({
+                                                ...questObj,
+                                                ['note']: e.target.value
+                                            })
+                                        }}
+                                    />
+                                </Stack>
+                            </>}
+                        {currentTab == 1 &&
+                            <>
+                                <Stack spacing={3}>
+                                    <TextField
+                                        label="제목"
+                                        value={questObj.title}
+                                        onChange={(e) => {
+                                            setQuestObj({
+                                                ...questObj,
+                                                ['title']: e.target.value
+                                            })
+                                        }}
+                                    />
+                                    <TextField
+                                        fullWidth
+                                        label="기능요청 내용"
+                                        multiline
+                                        rows={4}
+                                        value={questObj.note}
+                                        onChange={(e) => {
+                                            setQuestObj({
+                                                ...questObj,
+                                                ['note']: e.target.value
+                                            })
+                                        }}
+                                    />
+                                </Stack>
+                            </>}
+                        {currentTab == 2 &&
+                            <>
+                            
+                            </>}
+                    </>
+                    :
                     <>
 
                     </>}
-                {currentTab == 1 &&
-                    <>
 
-                    </>}
-                {currentTab == 2 &&
-                    <>
 
-                    </>}
-                {currentTab == 3 &&
-                    <>
-
-                    </>}
             </Wrappers>
 
         </>
