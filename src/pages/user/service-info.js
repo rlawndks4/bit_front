@@ -460,7 +460,7 @@ const ServiceInfo = () => {
                                 </ContentTitle>
                             </ContentTitleContainer>
                             <Content>
-                                국내 최저 금액인 6.5원에
+                            국내 최저 금액인 12.5원에
                             </Content>
                             <Content>
                                 발송 가능합니다.
