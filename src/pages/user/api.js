@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { Col, Row, Title, Title2, Title3, Wrappers } from "src/components/elements/styled-components";
 import { KAKAO_OBJ, zTabMenu } from "src/data/data";
 import UserLayout from "src/layouts/user/UserLayout";
+import AlimtalkList from "src/views/user/api/alimtalk/list";
+import AlimtalkSend from "src/views/user/api/alimtalk/send";
+import AlimtalkToken from "src/views/user/api/alimtalk/token";
+import FriendtalkList from "src/views/user/api/friendtalk/list";
+import FriendtalkSend from "src/views/user/api/friendtalk/send";
 import MsgList from "src/views/user/api/msg/list";
 import MsgRemain from "src/views/user/api/msg/remain";
 import MsgSend from "src/views/user/api/msg/send";
@@ -70,11 +75,15 @@ const Api = () => {
                     </>}
                 {currentTab == 1 &&
                     <>
-
+                        <AlimtalkToken />
+                        <AlimtalkSend />
+                        <AlimtalkList />
                     </>}
                 {currentTab == 2 &&
                     <>
-
+                        <AlimtalkToken />
+                        <FriendtalkSend />
+                        <FriendtalkList />
                     </>}
             </Wrappers>
 

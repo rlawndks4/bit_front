@@ -9,9 +9,17 @@ import { Box, Grid, Link, Stack, Divider, Container, Typography, IconButton } fr
 import Logo from '../../components/logo';
 import { logoSrc } from 'src/data/data';
 import { useEffect } from 'react';
+import { useSettingsContext } from 'src/components/settings';
+import styled from 'styled-components';
 
 // ----------------------------------------------------------------------
 
+const LogoImg = styled.img`
+height: 48px;
+@media (max-width: 1000px) {
+    margin: 1rem auto;
+}
+`
 const LINKS = [
   {
     headline: '서비스소개',
@@ -44,7 +52,8 @@ const LINKS = [
 
 export default function Footer() {
   const { pathname } = useRouter();
-  console.log(window.innerWidth)
+
+  const { themeDnsData } = useSettingsContext();
   const isHome = (pathname === '/' || pathname === '/user/home' || pathname === '/user' || window.innerWidth <= 800);
 
   const simpleFooter = (
@@ -75,6 +84,7 @@ export default function Footer() {
       sx={{
         position: 'relative',
         bgcolor: 'background.default',
+        marginTop: '5rem'
       }}
     >
       <Divider />
@@ -93,13 +103,31 @@ export default function Footer() {
             },
           }}
         >
-          <Grid item xs={12} sx={{ mb: 3 }}>
-            <img src={logoSrc()} style={{ height: '48px' }} />
+          <Grid item xs={12} sx={{ mb: 3, display: 'flex' }}>
+            <LogoImg src={logoSrc()} style={{ height: '48px' }} />
           </Grid>
 
           <Grid item xs={8} md={3}>
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-
+              회사명: {themeDnsData?.company_name}
+            </Typography>
+            <Typography variant="body2" sx={{ pr: { md: 5 } }}>
+              주소: {themeDnsData?.addr}
+            </Typography>
+            <Typography variant="body2" sx={{ pr: { md: 5 } }}>
+              사업자 등록번호: {themeDnsData?.business_num}
+            </Typography>
+            <Typography variant="body2" sx={{ pr: { md: 5 } }}>
+              대표: {themeDnsData?.ceo_name}
+            </Typography>
+            <Typography variant="body2" sx={{ pr: { md: 5 } }}>
+              전화: {themeDnsData?.phone_num}
+            </Typography>
+            <Typography variant="body2" sx={{ pr: { md: 5 } }}>
+              팩스: {themeDnsData?.fax_num}
+            </Typography>
+            <Typography variant="body2" sx={{ pr: { md: 5 } }}>
+              개인정보 보호책임자: {themeDnsData?.pvcy_rep_name}
             </Typography>
           </Grid>
 
@@ -150,5 +178,5 @@ export default function Footer() {
     </Box>
   );
 
-  return isHome ? simpleFooter : mainFooter;
+  return mainFooter;
 }

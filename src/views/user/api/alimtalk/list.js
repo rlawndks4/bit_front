@@ -51,7 +51,7 @@ const res_data_content_table_body = [
     ['res_msg', '결과메세지', 'String'],
     ['created_at', '발송시간', 'yyyy-mm-dd hh:mm:ss'],
 ]
-const MsgList = (props) => {
+const AlimtalkList = (props) => {
     return (
         <>
             <Title2 style={{ margin: '1rem 0' }}>전송내역조회</Title2>
@@ -68,7 +68,7 @@ const MsgList = (props) => {
             <Col style={{ padding: '2rem', background: '#222', rowGap: '0.5rem' }}>
                 <Row style={{ columnGap: '0.5rem' }}>
                     <div style={{ color: '#fff' }}>POST</div>
-                    <div style={{ color: 'yellow' }}>/api/msg/v1/list</div>
+                    <div style={{ color: 'yellow' }}>/api/alimtalk/v1/list</div>
                     <div style={{ color: '#fff' }}>HTTP/1.1</div>
                 </Row>
                 <Row style={{ columnGap: '0.5rem' }}>
@@ -81,7 +81,7 @@ const MsgList = (props) => {
                 </Row>
             </Col>
             <Title3 style={{ fontWeight: 'normal', color: '#777' }}>
-            HTTPS 프로토콜을 사용하여 POST로 요청합니다.
+            https 프로토콜을 사용하여 POST로 요청합니다.
             </Title3>
             <Table style={{ border: '1px solid #ccc' }}>
                 <TableHead>
@@ -210,4 +210,4 @@ const MsgList = (props) => {
         </>
     )
 }
-export default MsgList;
+export default AlimtalkList;

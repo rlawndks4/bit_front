@@ -51,10 +51,9 @@ const PrevArrowStyle = styled.div`
   }
   `
 const BannerImgContainer = styled.div`
-width: 78vw;
-height: 33.15vw;
+width: 100vw;
+height: 25vw;
 margin: 0 auto;
-border-radius:${props => props.img_list_length >= 2 ? '1rem' : '0'};
 overflow: hidden;
 @media (max-width:1200px) {
     width: 100vw;
@@ -154,8 +153,6 @@ const HomeBanner = (props) => {
     };
 
     let slide_setting = {
-        centerMode: true,
-        centerPadding: (img_list.length >= 2 ? (windowWidth > 1200 ? '10%' : 0) : 0), // 이미지 간격을 조절할 수 있는 값입니다.
         infinite: true,
         speed: 500,
         autoplay: false,
@@ -194,6 +191,7 @@ const HomeBanner = (props) => {
                                     style={{
                                         width: `${img_list.length >= 2 ? '' : '100vw'}`,
                                         backgroundImage: `url(${item.src})`,
+                                        
                                     }}
                                 >
                                     {currentSlideIndex == idx &&
