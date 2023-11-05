@@ -11,7 +11,7 @@ const req_table_body = [
     ['api_key', '인증용 API Key', 'O', 'String'],
     ['user_id', '사용자id', 'O', 'String'],
     ['page', '페이지번호', 'X(기본 1)', 'Integer'],
-    ['page_size', '페이지당 출력갯수', 'X(기본 30) 30~500', 'Integer'],
+    ['page_size', '페이지당 출력갯수', 'X(기본 30) ', 'Integer'],
     ['s_dt', '조회시작일자', 'X', 'yyyy-mm-dd'],
     ['e_dt', '조회마감일자', 'X', 'yyyy-mm-dd'],
 ]
