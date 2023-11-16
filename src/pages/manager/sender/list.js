@@ -161,12 +161,11 @@ const SenderList = () => {
     }
   }
   const onTestSend = async () => {
-    console.log(testSendObj)
-    let result = await apiApiServer(`msg/v1/send`,'create', {
+    let result = await apiApiServer(`msg/v1/send`, 'create', {
       api_key: testSendObj.api_key,
       user_id: testSendObj.user_id,
       sender: testSendObj.sender,
-      receiver: '01029522667',
+      receiver: testSendObj.receiver,
       msg: testSendObj.text,
     })
     if (result) {
@@ -178,7 +177,7 @@ const SenderList = () => {
       setTestSendObj({
         id: '',
         text: '',
-        receiver:'',
+        receiver: '',
       })
     }
   }
@@ -194,7 +193,7 @@ const SenderList = () => {
           setTestSendObj({
             id: '',
             text: '',
-            receiver:'',
+            receiver: '',
           })
         }}
       >
@@ -243,7 +242,7 @@ const SenderList = () => {
             setTestSendObj({
               id: '',
               text: '',
-              receiver:'',
+              receiver: '',
             })
           }}>
             취소
