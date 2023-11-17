@@ -23,7 +23,10 @@ const DepositList = () => {
       title: '유저정보',
       count: 2
     },
-
+    {
+      title: '메세지정보',
+      count: 2
+    },
   ]
   const defaultColumns = [
     {
@@ -52,6 +55,20 @@ const DepositList = () => {
       label: '누적예치금액',
       action: (row) => {
         return commarNumber(row['total_deposit'])
+      }
+    },
+    {
+      id: 'msg',
+      label: '메세지',
+      action: (row) => {
+        return row['msg'] ?? "---"
+      }
+    },
+    {
+      id: 'res_msg',
+      label: '결과메세지',
+      action: (row) => {
+        return row['res_msg'] ?? "---"
       }
     },
     {
