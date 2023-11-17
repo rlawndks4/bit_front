@@ -25,7 +25,7 @@ const DepositList = () => {
     },
     {
       title: '메세지정보',
-      count: 2
+      count: 3
     },
   ]
   const defaultColumns = [
@@ -69,6 +69,13 @@ const DepositList = () => {
       label: '결과메세지',
       action: (row) => {
         return row['res_msg'] ?? "---"
+      }
+    },
+    {
+      id: 'ref_key',
+      label: 'REF KEY',
+      action: (row) => {
+        return row['ref_key'] ?? "---"
       }
     },
     {
