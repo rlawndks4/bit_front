@@ -58,6 +58,13 @@ const DepositList = () => {
       }
     },
     {
+      id: 'receiver',
+      label: '수신자',
+      action: (row) => {
+        return row['receiver'] ?? "---"
+      }
+    },
+    {
       id: 'msg',
       label: '메세지',
       action: (row) => {
