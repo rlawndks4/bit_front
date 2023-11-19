@@ -27,7 +27,7 @@ const tab_list = [
   },
   {
     value: 2,
-    label: '예치금차감설정'
+    label: '사용료설정'
   },
 ]
 const UserEdit = () => {

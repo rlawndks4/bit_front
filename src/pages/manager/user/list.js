@@ -180,7 +180,7 @@ const UserList = () => {
     },
     {
       id: 'permit_ips',
-      label: '예치금차감설정',
+      label: '사용료설정',
       action: (row) => {
         return (
           <>
