@@ -147,6 +147,7 @@ const KakaoTempleteList = () => {
                                 sender: row?.sender,
                                 token: row?.kakao_token,
                                 tpl_code: row?.tpl_code,
+                                senderkey: row?.senderkey,
                                 button_1: { button: row?.button_obj }
                             })
                         }}>
@@ -226,7 +227,7 @@ const KakaoTempleteList = () => {
         }
     }
     const onTestSend = async () => {
-        let result = await apiApiServer(`alimtalk/v1/send`, 'create', { ...testSendObj, senderkey: `${new Date().getTime()}${testSendObj?.sender}${testSendObj?.receiver_1}` });
+        let result = await apiApiServer(`alimtalk/v1/send`, 'create', { ...testSendObj });
         if (result) {
             toast.success("성공적으로 전송 되었습니다.");
             setDialogObj({
