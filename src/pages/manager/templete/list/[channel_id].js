@@ -24,7 +24,7 @@ const KakaoTempleteList = () => {
         },
         {
             title: '카카오채널정보',
-            count: 2,
+            count: 3,
         },
         {
             title: '유저정보',
@@ -66,6 +66,13 @@ const KakaoTempleteList = () => {
             label: '카카오채널휴대폰번호',
             action: (row) => {
                 return row['sender'] ?? "---"
+            }
+        },
+        {
+            id: 'senderkey',
+            label: '발신키',
+            action: (row) => {
+                return row['senderkey'] ?? "---"
             }
         },
         {
