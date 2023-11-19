@@ -31,6 +31,7 @@ const KakaoChannelEdit = () => {
     channel_user_name: '',
     phone_num: '',
     user_name: '',
+    senderkey: '',
     note: '',
     status: 0,
   })
@@ -94,6 +95,17 @@ const KakaoChannelEdit = () => {
                             {
                               ...item,
                               ['phone_num']: e.target.value
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='발신프로필키'
+                        value={item.senderkey}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['senderkey']: e.target.value
                             }
                           )
                         }} />
