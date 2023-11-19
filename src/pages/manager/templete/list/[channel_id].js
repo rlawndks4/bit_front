@@ -70,7 +70,7 @@ const KakaoTempleteList = () => {
         },
         {
             id: 'senderkey',
-            label: '발신키',
+            label: '발신프로필키',
             action: (row) => {
                 return row['senderkey'] ?? "---"
             }
