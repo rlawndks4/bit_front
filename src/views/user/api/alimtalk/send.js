@@ -11,16 +11,18 @@ const req_table_body = [
     ['api_key', '인증용 API Key', 'O', 'String'],
     ['user_id', '사용자id', 'O', 'String'],
     ['token', '생성한 토큰', 'O', 'String'],
+    ['senderkey', '발신프로파일 키', 'O', 'String'],
+    ['tpl_code', '템플릿 코드', 'O', 'String'],
     ['sender', '발신자 전화번호 (최대 16bytes)', 'O', 'String'],
     ['receiver_1 (1 ~ 500)', '수신자 연락처', 'O', 'String'],
     ['recvname_1 (1 ~ 500)', '수신자 이름', 'X', 'String'],
     ['subject_1 (1 ~ 500)', '알림톡 제목', 'O', 'String'],
-    ['message_1 (1 ~ 500)', '알림톡 내용', 'O', 'String'],
-    ['emtitle_1 (1 ~ 500)', '강조표기형의 타이틀', 'X', 'String'],
+    ['msg_1 (1 ~ 500)', '알림톡 내용', 'O', 'String'],
+    // ['emsubject_1 (1 ~ 500)', '강조표기형의 타이틀', 'X', 'String'],
     ['button_1 (1 ~ 500)', '버튼 정보', 'X', 'String'],
-    ['failover', '실패시 대체문자 전송기능', 'X', 'String'],
-    ['fsubject_1 (1 ~ 500)', '실패시 대체문자 제목', 'X', 'String'],
-    ['fmessage_1 (1 ~ 500)', '실패시 대체문자 내용', 'X', 'String'],
+    // ['failover', '실패시 대체문자 전송기능', 'X', 'String'],
+    // ['fsubject_1 (1 ~ 500)', '실패시 대체문자 제목', 'X', 'String'],
+    // ['fmessage_1 (1 ~ 500)', '실패시 대체문자 내용', 'X', 'String'],
 ]
 const res_table_head = [
     '키',
@@ -37,7 +39,7 @@ const AlimtalkSend = (props) => {
         <>
             <Title2 style={{ margin: '1rem 0' }}>알림톡 전송</Title2>
             <Title3 style={{ fontWeight: 'normal', color: '#777' }}>
-            알림톡 전송을 요청합니다. 템플릿 서식과 일치하지 않을경우 전송되지 않습니다.
+                알림톡 전송을 요청합니다. 템플릿 서식과 일치하지 않을경우 전송되지 않습니다.
             </Title3>
             <Title3>
                 [ Request ]
@@ -88,6 +90,75 @@ const AlimtalkSend = (props) => {
                     ))}
                 </TableBody>
             </Table>
+            <Title3 style={{ fontWeight: 'normal', color: '#777' }}>
+                전송예시입니다.
+            </Title3>
+            <Col style={{ padding: '2rem', background: '#222', rowGap: '0.5rem' }}>
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: 'yellow' }}>curl</div>
+                    <div style={{ color: '#fff' }}>-X POST</div>
+                    <div style={{ color: 'orange' }}>"{process.env.API_URL}/api/alimtalk/v1/send"</div>
+                </Row>
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange' }}>"api_key=xxxxx"</div>
+                </Row>
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange' }}>"user_id=xxxxx"</div>
+                </Row>
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange' }}>"token=xxxxx"</div>
+                </Row>
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange' }}>"senderkey=xxxxx"</div>
+                </Row>
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange' }}>"tpl_code=xxxxx"</div>
+                </Row>
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange' }}>"sender=xxxxx"</div>
+                </Row>
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange' }}>"receiver_1=010xxxxxxxx"</div>
+                </Row>
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange' }}>"recvname_1=홍길동1"</div>
+                </Row>
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange' }}>"subject_1=제목1"</div>
+                </Row>
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange' }}>"msg_1=내용1"</div>
+                </Row>
+                {/* <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange' }}>"emsubject_1=홍길동"</div>
+                </Row> */}
+                <Row style={{ columnGap: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>--data-urlencode</div>
+                    <div style={{ color: 'orange', whiteSpace: 'pre' }}>
+                        {`"button_1: {
+                            button: [{
+                            "name" : 버튼명
+                            "linkType" : AC, DS, WL, AL, BK, MD 중에서 1개
+                            "linkMo" : 설정한 모바일 링크
+                            "linkPc" : 설정한 PC 링크
+                            "linkIos" : 설정한 IOS Scheme
+                            "linkAnd" : 설정한 Android Scheme
+                        }]
+                    }"
+                    `}</div>
+                </Row>
+            </Col>
             <Title3>
                 [ Response ]
             </Title3>

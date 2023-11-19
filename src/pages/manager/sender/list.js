@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Card, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, Stack, TextField, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Card, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import ManagerTable from "src/sections/manager/table/ManagerTable";
 import { Icon } from "@iconify/react";
@@ -55,11 +55,25 @@ const SenderList = () => {
       },
     },
     {
-      id: 'status_str',
+      id: 'status',
       label: '상태',
       action: (row) => {
-        return row['status_str'] ?? "---"
-      }
+        return <Select
+          size="small"
+          defaultValue={row?.status}
+          onChange={async (e) => {
+            let result = await apiManager(`util/senders/status`, 'create', {
+              id: row?.id,
+              value: e.target.value
+            })
+
+          }}
+        >
+          <MenuItem value={0}>{'정상'}</MenuItem>
+          <MenuItem value={1}>{'검토중'}</MenuItem>
+          <MenuItem value={2}>{'차단됨'}</MenuItem>
+        </Select>
+      },
     },
     {
       id: 'created_at',
@@ -218,6 +232,8 @@ const SenderList = () => {
           />
           <TextField
             fullWidth
+            multiline
+            rows={4}
             value={testSendObj.text}
             margin="dense"
             label="텍스트"

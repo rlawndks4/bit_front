@@ -6,10 +6,6 @@ import { Row, themeObj } from "src/components/elements/styled-components";
 import { useSettingsContext } from "src/components/settings";
 import { Upload } from "src/components/upload";
 import ManagerLayout from "src/layouts/manager/ManagerLayout";
-import { base64toFile, getAllIdsWithParents } from "src/utils/function";
-import styled from "styled-components";
-import { react_quill_data } from "src/data/manager-data";
-import { axiosIns } from "src/utils/axios";
 import { toast } from "react-hot-toast";
 import { useModal } from "src/components/dialog/ModalProvider";
 import dynamic from "next/dynamic";
@@ -247,7 +243,7 @@ const UserEdit = () => {
                   </Card>
                 </Grid>
               </>}
-              {currentTab == 2 &&
+            {currentTab == 2 &&
               <>
                 <Grid item xs={12} md={6}>
                   <Card sx={{ p: 2, height: '100%' }}>

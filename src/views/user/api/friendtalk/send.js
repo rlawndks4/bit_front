@@ -14,13 +14,13 @@ const req_table_body = [
     ['sender', '발신자 전화번호 (최대 16bytes)', 'O', 'String'],
     ['receiver_1 (1 ~ 500)', '수신자 연락처', 'O', 'String'],
     ['recvname_1 (1 ~ 500)', '수신자 이름', 'X', 'String'],
-    ['subject_1 (1 ~ 500)', '친구톡 제목', 'O', 'String'],
-    ['message_1 (1 ~ 500)', '친구톡 내용', 'O', 'String'],
+    ['title_1 (1 ~ 500)', '친구톡 제목', 'O', 'String'],
+    ['msg_1 (1 ~ 500)', '친구톡 내용', 'O', 'String'],
     ['emtitle_1 (1 ~ 500)', '강조표기형의 타이틀', 'X', 'String'],
     ['button_1 (1 ~ 500)', '버튼 정보', 'X', 'String'],
     ['failover', '실패시 대체문자 전송기능', 'X', 'String'],
-    ['fsubject_1 (1 ~ 500)', '실패시 대체문자 제목', 'X', 'String'],
-    ['fmessage_1 (1 ~ 500)', '실패시 대체문자 내용', 'X', 'String'],
+    ['ftitle_1 (1 ~ 500)', '실패시 대체문자 제목', 'X', 'String'],
+    ['fmsg_1 (1 ~ 500)', '실패시 대체문자 내용', 'X', 'String'],
 ]
 const res_table_head = [
     '키',
@@ -37,7 +37,7 @@ const FriendtalkSend = (props) => {
         <>
             <Title2 style={{ margin: '1rem 0' }}>친구톡 전송</Title2>
             <Title3 style={{ fontWeight: 'normal', color: '#777' }}>
-            친구톡 전송을 요청합니다. 템플릿 서식과 일치하지 않을경우 전송되지 않습니다.
+                친구톡 전송을 요청합니다. 템플릿 서식과 일치하지 않을경우 전송되지 않습니다.
             </Title3>
             <Title3>
                 [ Request ]

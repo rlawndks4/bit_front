@@ -305,7 +305,7 @@ const UserList = () => {
     }
   }
   const onChangeUserKakaoToken = async (row) => {
-    let result = await apiApiServer(`alimtalk/v1/token/create/1/m`, 'create', { ...row, user_id: row?.user_name });
+    let result = await apiApiServer(`alimtalk/v1/token/create/1/h`, 'create', { ...row, user_id: row?.user_name });
     if (result) {
       toast.success("성공적으로 발급 되었습니다.");
       onChangePage(searchObj);

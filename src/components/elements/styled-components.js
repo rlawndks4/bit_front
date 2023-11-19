@@ -58,8 +58,8 @@ font-weight:bold;
 }
 `
 export const Title3 = styled.h3`
-margin: 1rem auto;
-font-size:${themeObj.font_size.size5};
+margin: 1rem auto 1rem 0;
+font-size:${themeObj.font_size.size6};
 font-weight:bold;
 @media (max-width:1000px) {
   font-size:${themeObj.font_size.size7};

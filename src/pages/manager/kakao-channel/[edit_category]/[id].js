@@ -28,7 +28,7 @@ const KakaoChannelEdit = () => {
 
   const [loading, setLoading] = useState(true);
   const [item, setItem] = useState({
-    channel_id: '',
+    channel_user_name: '',
     phone_num: '',
     user_name: '',
     note: '',
@@ -77,12 +77,12 @@ const KakaoChannelEdit = () => {
                     <Stack spacing={3}>
                       <TextField
                         label='채널 검색용 아이디'
-                        value={item.channel_id}
+                        value={item.channel_user_name}
                         onChange={(e) => {
                           setItem(
                             {
                               ...item,
-                              ['channel_id']: e.target.value
+                              ['channel_user_name']: e.target.value
                             }
                           )
                         }} />

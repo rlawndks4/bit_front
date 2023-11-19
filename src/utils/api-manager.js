@@ -91,7 +91,7 @@ export const apiManager = (table, type, params) => {
     let base_url = `/api`;
     if (!(obj?.brand_id > 0)) {
         obj['brand_id'] = dns_data?.id;
-      }
+    }
     if (type == 'get') {
         return get(`${base_url}/${table}/${params?.id}`);
     }
@@ -111,7 +111,7 @@ export const apiManager = (table, type, params) => {
 export const apiApiServer = (table, type, params) => {
     let obj = settingParams(table, type, params);
     let pathname = window.location.pathname;
-    
+
     let base_url = `${process.env.API_URL}/api`;
     if (type == 'get') {
         return get(`${base_url}/${table}/${params?.id}`);
@@ -144,12 +144,7 @@ const settingdeleteImageObj = (obj_) => {//이미지 존재안할시 삭제함
 export const settingParams = (table, type, params) => {
     let obj = { ...params };
     let keys = Object.keys(obj);
-    for (var i = 0; i < keys.length; i++) {
-        let key = keys[i];
-        if (!obj[key]) {
-            delete obj[key];
-        }
-    }
+
     if (type == 'create') {
         obj = settingdeleteImageObj(obj);
     }

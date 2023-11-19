@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Card, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, Stack, TextField, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Card, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import ManagerTable from "src/sections/manager/table/ManagerTable";
 import { Icon } from "@iconify/react";
@@ -11,6 +11,7 @@ import { apiApiServer, apiManager } from "src/utils/api-manager";
 import { useAuthContext } from "src/auth/useAuthContext";
 import { m } from 'framer-motion'
 import { varFade } from "src/components/animate";
+import { commarNumber } from "src/utils/function";
 const KakaoChannelList = () => {
   const { user } = useAuthContext();
   const { setModal } = useModal();
@@ -28,10 +29,10 @@ const KakaoChannelList = () => {
   ]
   const defaultColumns = [
     {
-      id: 'channel_id',
+      id: 'channel_user_name',
       label: '카카오채널아이디',
       action: (row) => {
-        return row['channel_id'] ?? "---"
+        return row['channel_user_name'] ?? "---"
       }
     },
     {
@@ -63,17 +64,37 @@ const KakaoChannelList = () => {
       },
     },
     {
-      id: 'status_str',
+      id: 'status',
       label: '상태',
       action: (row) => {
-        return row['status_str'] ?? "---"
-      }
+        return <Select
+          size="small"
+          defaultValue={row?.status}
+          onChange={async (e) => {
+            let result = await apiManager(`util/kakao_channels/status`, 'create', {
+              id: row?.id,
+              value: e.target.value
+            })
+          }}
+        >
+          <MenuItem value={0}>{'정상'}</MenuItem>
+          <MenuItem value={1}>{'검토중'}</MenuItem>
+          <MenuItem value={2}>{'차단됨'}</MenuItem>
+        </Select>
+      },
     },
     {
       id: 'created_at',
       label: '신청일',
       action: (row) => {
         return row['created_at'] ?? "---"
+      }
+    },
+    {
+      id: 'templete_count',
+      label: '템플릿갯수',
+      action: (row) => {
+        return commarNumber(row['templete_count'] ?? "---")
       }
     },
     {
@@ -86,7 +107,7 @@ const KakaoChannelList = () => {
         return (
           <>
             <IconButton onClick={() => {
-
+              router.push(`/manager/templete/list/${row?.id}`)
             }}>
               <Icon icon='iconoir:frame-simple' />
             </IconButton>
@@ -156,9 +177,6 @@ const KakaoChannelList = () => {
     }
   }
 
-  const onClickTempleteManagement = () => {
-
-  }
   return (
     <>
       <Stack spacing={3}>

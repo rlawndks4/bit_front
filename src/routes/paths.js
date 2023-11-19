@@ -29,6 +29,11 @@ export const PATH_MANAGER = {
     list: path(ROOTS_MANAGER, '/kakao-channel/list'),
     add: path(ROOTS_MANAGER, '/kakao-channel/add'),
   },
+  kakaoTemplete: {
+    root: path(ROOTS_MANAGER, '/templete'),
+    list: path(ROOTS_MANAGER, '/templete/list'),
+    add: path(ROOTS_MANAGER, '/templete/add'),
+  },
   deposit: {
     root: path(ROOTS_MANAGER, '/deposit'),
     list: path(ROOTS_MANAGER, '/deposit/list'),

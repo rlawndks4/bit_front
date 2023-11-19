@@ -85,6 +85,19 @@ const navConfig = () => {
     {
       items: [
         {
+          title: '카카오템플릿관리',
+          path: PATH_MANAGER.kakaoTemplete.root,
+          icon: ICONS.user,
+          children: [
+            { title: '카카오템플릿관리', path: PATH_MANAGER.kakaoTemplete.list },
+            { title: '카카오템플릿추가', path: PATH_MANAGER.kakaoTemplete.add },
+          ],
+        },
+      ],
+    },
+    {
+      items: [
+        {
           title: '예치금관리',
           path: PATH_MANAGER.deposit.root,
           icon: ICONS.user,
