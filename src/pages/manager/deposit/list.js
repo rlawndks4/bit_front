@@ -97,8 +97,7 @@ const DepositList = () => {
       id: 'margin',
       label: '누적마진',
       action: (row) => {
-        return commarNumber(row['total_brand_deposit'] - row['total_deposit'])
-
+        return commarNumber(row['total_use_bizppurio_deposit'] - row['total_use_send_deposit'])
       }
     },
     {
