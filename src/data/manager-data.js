@@ -60,10 +60,22 @@ export const defaultManagerObj = {
     setting_obj: {
       tutorial_num: 0,
       shop_demo_num: 1,
+      sms: 10,
+      lms: 36,
+      mms: 50,
+      at: 10,
+      ai: 30,
     },
     theme_css: {
       main_color: '#00ab55'
     },
+    bizppurio_obj: {
+      sms: 0,
+      lms: 0,
+      mms: 0,
+      at: 0,
+      ai: 0,
+    }
   },
   products: {
     product_file: undefined,

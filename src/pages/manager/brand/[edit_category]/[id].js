@@ -76,6 +76,10 @@ const BrandEdit = () => {
       value: 3,
       label: '사용료설정'
     },
+    {
+      value: 4,
+      label: '비즈뿌리오금액'
+    },
   ]
 
   useEffect(() => {
@@ -570,6 +574,91 @@ const BrandEdit = () => {
                               ...item,
                               ['setting_obj']: {
                                 ...item.setting_obj,
+                                ['ai']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                    </Stack>
+                  </Card>
+                </Grid>
+              </>}
+            {currentTab == 4 &&
+              <>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <TextField
+                        label='sms'
+                        value={item.bizppurio_obj?.sms ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['bizppurio_obj']: {
+                                ...item.bizppurio_obj,
+                                ['sms']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='lms'
+                        value={item.bizppurio_obj?.lms ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['bizppurio_obj']: {
+                                ...item.bizppurio_obj,
+                                ['lms']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='mms'
+                        value={item.bizppurio_obj?.mms ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['bizppurio_obj']: {
+                                ...item.bizppurio_obj,
+                                ['mms']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                    </Stack>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <TextField
+                        label='at'
+                        value={item.bizppurio_obj?.at ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['bizppurio_obj']: {
+                                ...item.bizppurio_obj,
+                                ['at']: e.target.value
+                              }
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='ai'
+                        value={item.bizppurio_obj?.ai ?? 0}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['bizppurio_obj']: {
+                                ...item.bizppurio_obj,
                                 ['ai']: e.target.value
                               }
                             }
