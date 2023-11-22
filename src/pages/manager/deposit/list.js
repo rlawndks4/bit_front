@@ -86,6 +86,22 @@ const DepositList = () => {
       }
     },
     {
+      id: 'margin',
+      label: '마진',
+      action: (row) => {
+        return commarNumber(row['brand_deposit'] - row['deposit'])
+
+      }
+    },
+    {
+      id: 'margin',
+      label: '누적마진',
+      action: (row) => {
+        return commarNumber(row['total_deposit'] - row['total_deposit'])
+
+      }
+    },
+    {
       id: 'type',
       label: '추가/감소',
       action: (row) => {
