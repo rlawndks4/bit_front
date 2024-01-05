@@ -59,14 +59,7 @@ const Header = (props) => {
 
     const { logout, user } = useAuthContext();
     const { themeDnsData } = useSettingsContext();
-    const [deposit, setDeposit] = useState(0);
-    useEffect(() => {
-        getDeposit();
-    }, []);
-    const getDeposit = async () => {
-        let result = await apiManager('auth','get',{id:'deposit'});
-        setDeposit(result?.deposit??0);
-    }
+
     return (
         <>
             <Wrappers>
@@ -83,32 +76,9 @@ const Header = (props) => {
                             </>
                         ))}
                     </Row>
-                    {user ?
-                        <>
-                            <Row style={{ alignItems: 'center', columnGap: '1rem' }}>
-                                <Col style={{ rowGap: '0.5rem' }}>
-                                    <Row style={{ alignItems: 'center', columnGap: '1rem' }}>
-                                        <Icon icon={'bxs:user'} />
-                                        <div>{user?.nickname} ({user?.user_name})</div>
-                                    </Row>
-                                    <Chip label={`잔여예치금: ${commarNumber(deposit)}P`} size="small" variant="outlined" />
-                                </Col>
-                                <Button variant="outlined" onClick={async () => {
-                                    let result = await logout();
-                                    window.location.href = '/'
-                                }}>로그아웃</Button>
-                            </Row>
-                        </>
-                        :
-                        <>
-                            <Row style={{ alignItems: 'center', columnGap: '1rem' }}>
-                                <Button variant="outlined">회원가입</Button>
-                                <Button variant="outlined" onClick={() => {
-                                    router.push('/user/login')
-                                }}>로그인</Button>
-                            </Row>
-                        </>}
-
+                    <Row style={{ alignItems: 'center', columnGap: '1rem' }}>
+                        ㅁㄴㅇ
+                    </Row>
                 </Row>
             </Wrappers>
             <PaddingTop />

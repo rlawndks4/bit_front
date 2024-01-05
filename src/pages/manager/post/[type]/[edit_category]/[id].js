@@ -60,9 +60,9 @@ const PostEdit = () => {
       router.push('/manager/post');
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     console.log(item)
-  },[item])
+  }, [item])
   return (
     <>
       {!loading &&

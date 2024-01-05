@@ -3,6 +3,7 @@ import { PATH_MANAGER } from '../../../routes/paths';
 // components
 import SvgColor from '../../../components/svg-color';
 import { useAuthContext } from 'src/auth/useAuthContext';
+import { postTypeList } from 'src/utils/format';
 
 // ----------------------------------------------------------------------
 
@@ -56,72 +57,21 @@ const navConfig = () => {
         },
       ],
     },
-    {
-      items: [
-        {
-          title: '발신자관리',
-          path: PATH_MANAGER.sender.root,
-          icon: ICONS.user,
-          children: [
-            { title: '발신자관리', path: PATH_MANAGER.sender.list },
-            { title: '발신자추가', path: PATH_MANAGER.sender.add },
-          ],
-        },
-      ],
-    },
-    {
-      items: [
-        {
-          title: '카카오채널관리',
-          path: PATH_MANAGER.kakaoChannel.root,
-          icon: ICONS.user,
-          children: [
-            { title: '카카오채널관리', path: PATH_MANAGER.kakaoChannel.list },
-            { title: '카카오채널추가', path: PATH_MANAGER.kakaoChannel.add },
-          ],
-        },
-      ],
-    },
-    {
-      items: [
-        {
-          title: '카카오템플릿관리',
-          path: PATH_MANAGER.kakaoTemplete.root,
-          icon: ICONS.user,
-          children: [
-            { title: '카카오템플릿관리', path: PATH_MANAGER.kakaoTemplete.list },
-            { title: '카카오템플릿추가', path: PATH_MANAGER.kakaoTemplete.add },
-          ],
-        },
-      ],
-    },
-    {
-      items: [
-        {
-          title: '예치금관리',
-          path: PATH_MANAGER.deposit.root,
-          icon: ICONS.user,
-          children: [
-            { title: '예치금관리', path: PATH_MANAGER.deposit.list },
-            { title: '예치금추가', path: PATH_MANAGER.deposit.add },
-          ],
-        },
-      ],
-    },
-    // {
-    //   items: [
-    //     {
-    //       title: '게시물관리',
-    //       path: PATH_MANAGER.post.root,
-    //       icon: ICONS.booking,
-    //       children: [
-    //         { title: '게시물관리', path: PATH_MANAGER.post.list },
-    //         { title: '게시물추가', path: PATH_MANAGER.post.add },
-
-    //       ],
-    //     },
-    //   ],
-    // },
+    ...(postTypeList.map((post_type => {
+      return {
+        items: [
+          {
+            title: `${post_type.label}관리`,
+            path: PATH_MANAGER.user.root,
+            icon: ICONS.user,
+            children: [
+              { title: `${post_type.label}관리`, path: PATH_MANAGER.post.list + `/${post_type.value}` },
+              { title: '회원추가', path: PATH_MANAGER.user.add },
+            ],
+          },
+        ],
+      }
+    }))),
     {
       items: [
         {

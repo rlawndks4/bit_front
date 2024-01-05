@@ -179,7 +179,7 @@ export default function ManagerTable(props) {
             :
             <>
               <Table sx={{ minWidth: 800, overflowX: 'auto', ...table_style }}>
-                {zHeadColumn &&
+                {zHeadColumn.length > 0 &&
                   <>
                     <TableHead>
                       <TableRow sx={{ padding: '1rem 0' }}>

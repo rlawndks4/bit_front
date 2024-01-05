@@ -8,7 +8,7 @@ export default function Index() {
 
   useEffect(() => {
     if (router.pathname === '/manager/post') {
-      router.push('/manager/post/list');
+      router.push('/manager/post/0/list');
     }
   });
   return null;

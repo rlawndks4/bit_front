@@ -64,19 +64,6 @@ const Login = () => {
   };
   return (
     <>
-      <StyledSection>
-        <Typography variant="h3" sx={{ mb: 10, maxWidth: 520, textAlign: 'center' }}>
-          {themeDnsData?.name} 에 오신것을 환영합니다!
-        </Typography>
-        <Image
-          disabledEffect
-          visibleByDefault
-          alt="auth"
-          src={'/assets/illustrations/illustration_dashboard.png'}
-          sx={{ maxWidth: 720 }}
-        />
-        <StyledSectionBg />
-      </StyledSection>
       <StyledContent style={{ minHeight: '90vh' }}>
         <Stack sx={{ width: 1 }}>
           <img src={logoSrc()} style={{ maxWidth: '200px', margin: '1rem auto' }} />

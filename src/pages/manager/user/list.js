@@ -14,16 +14,7 @@ const UserList = () => {
   const { user } = useAuthContext();
   const { setModal } = useModal();
   const [showApiKeyId, setShowApiKeyId] = useState(undefined);
-  const defaultHeadColumns = [
-    {
-      title: '기본정보',
-      count: 5,
-    },
-    {
-      title: 'KAKAO 정보',
-      count: 2
-    },
-  ]
+  const defaultHeadColumns = []
   const defaultColumns = [
     {
       id: 'profile_img',
@@ -54,143 +45,10 @@ const UserList = () => {
       }
     },
     {
-      id: 'total_deposit',
-      label: '예치금액',
-      action: (row) => {
-        return commarNumber(row['total_deposit'])
-      }
-    },
-    {
-      id: 'api_key',
-      label: 'API KEY',
-      action: (row) => {
-        return <Accordion key={row?.id} style={{ boxShadow: "none", background: 'transparent', width: '200px', wordBreak: 'break-all' }} disabled={!(row?.api_key)}>
-          <AccordionSummary expandIcon={<Icon icon="eva:arrow-ios-downward-fill" />}>
-            <Typography variant="subtitle1">자세히보기</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {row?.api_key}
-          </AccordionDetails>
-        </Accordion>
-      },
-    },
-    {
-      id: 'kakao_token',
-      label: '토큰',
-      action: (row) => {
-        return <Accordion key={row?.id} style={{ boxShadow: "none", background: 'transparent', width: '200px', wordBreak: 'break-all' }} disabled={!(row?.kakao_token)}>
-          <AccordionSummary expandIcon={<Icon icon="eva:arrow-ios-downward-fill" />}>
-            <Typography variant="subtitle1">자세히보기</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {row?.kakao_token}
-          </AccordionDetails>
-        </Accordion>
-      },
-    },
-    {
-      id: 'kakao_token_expired',
-      label: '토큰 만료일',
-      action: (row) => {
-        return <Col style={{
-          maxWidth: '300px',
-          wordBreak: 'break-all'
-        }}>
-          <div>
-            {row['kakao_token_expired'] ? returnMoment(false, new Date(row.kakao_token_expired)) : '---'}
-          </div>
-        </Col>
-      },
-    },
-    {
       id: 'created_at',
       label: '가입일',
       action: (row) => {
         return row['created_at'] ?? "---"
-      }
-    },
-
-    {
-      id: 're_api_key',
-      label: 'api key 재발급',
-      action: (row) => {
-        return (
-          <>
-            <IconButton onClick={() => {
-              setModal({
-                func: () => { onChangeUserApiKey(row) },
-                icon: 'material-symbols:replay',
-                title: 'api key 재발급 하시겠습니까?'
-              })
-            }}>
-              <Icon icon='material-symbols:replay' />
-            </IconButton>
-          </>
-        )
-      }
-    },
-    {
-      id: 're_kakao_token',
-      label: '카카오토큰 재발급',
-      action: (row) => {
-        return (
-          <>
-            <IconButton onClick={() => {
-              setModal({
-                func: () => { onChangeUserKakaoToken(row) },
-                icon: 'material-symbols:replay',
-                title: '카카오토큰 재발급 하시겠습니까?'
-              })
-            }}>
-              <Icon icon='material-symbols:replay' />
-            </IconButton>
-          </>
-        )
-      }
-    },
-    {
-      id: 'sender_add',
-      label: '발신자추가',
-      action: (row) => {
-        return (
-          <>
-            <IconButton onClick={() => {
-              router.push(`/manager/sender/add?user_name=${row?.user_name}`)
-            }}>
-              <Icon icon='bi:send-plus' />
-            </IconButton>
-          </>
-        )
-      }
-    },
-    {
-      id: 'permit_ips',
-      label: '허용IP설정',
-      action: (row) => {
-        return (
-          <>
-            <IconButton onClick={() => {
-              router.push(`edit/${row?.id}?type=1`)
-            }}>
-              <Icon icon='eos-icons:ip-outlined' />
-            </IconButton>
-          </>
-        )
-      }
-    },
-    {
-      id: 'permit_ips',
-      label: '사용료설정',
-      action: (row) => {
-        return (
-          <>
-            <IconButton onClick={() => {
-              router.push(`edit/${row?.id}?type=2`)
-            }}>
-              <Icon icon='vaadin:money-deposit' />
-            </IconButton>
-          </>
-        )
       }
     },
     {
@@ -359,9 +217,6 @@ const UserList = () => {
             searchObj={searchObj}
             onChangePage={onChangePage}
             add_button_text={'회원 추가'}
-            table_style={{
-              width: '150%'
-            }}
           />
         </Card>
       </Stack>
