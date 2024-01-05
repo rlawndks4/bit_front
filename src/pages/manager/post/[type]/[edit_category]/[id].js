@@ -38,8 +38,6 @@ const PostEdit = () => {
     settingPage();
   }, [router.asPath])
   const settingPage = async () => {
-    let shop_list = await apiManager('shops', 'list', {})
-    setShopList(shop_list?.content);
     if (router.query?.edit_category == 'edit') {
       let data = await apiManager('posts', 'get', {
         id: router.query.id
@@ -51,13 +49,13 @@ const PostEdit = () => {
   const onSave = async () => {
     let result = undefined
     if (item?.id) {//수정
-      result = await apiManager('posts', 'update', item);
+      result = await apiManager('posts', 'update', { ...item, type: router.query?.type });
     } else {//추가
-      result = await apiManager('posts', 'create', item);
+      result = await apiManager('posts', 'create', { ...item, type: router.query?.type });
     }
     if (result) {
       toast.success("성공적으로 저장 되었습니다.");
-      router.push('/manager/post');
+      router.push(`/manager/post/${router.query?.type}/list`);
     }
   }
   useEffect(() => {
@@ -104,39 +102,6 @@ const PostEdit = () => {
             <Grid item xs={12} md={6}>
               <Card sx={{ p: 2, height: '100%' }}>
                 <Stack spacing={3}>
-                  <FormControl>
-                    <InputLabel>카테고리</InputLabel>
-                    <Select label='카테고리' value={item.type} onChange={(e) => {
-                      setItem(
-                        {
-                          ...item,
-                          ['type']: e.target.value.toString()
-                        }
-                      )
-                    }}>
-                      {post_category_list && post_category_list.map((cate, idx) => {
-                        return <MenuItem value={idx}>{cate}</MenuItem>
-                      })}
-                    </Select>
-                  </FormControl>
-                  {(item.type == 0 || item.type == 2) &&
-                    <>
-                      <FormControl>
-                        <InputLabel>미용실선택</InputLabel>
-                        <Select label='미용실선택' value={item.shop_id} onChange={(e) => {
-                          setItem(
-                            {
-                              ...item,
-                              ['shop_id']: e.target.value
-                            }
-                          )
-                        }}>
-                          {shopList && shopList.map((shop, idx) => {
-                            return <MenuItem value={shop?.id}>{shop.name}</MenuItem>
-                          })}
-                        </Select>
-                      </FormControl>
-                    </>}
                   <TextField
                     label='제목'
                     value={item.title}

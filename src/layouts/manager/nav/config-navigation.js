@@ -4,6 +4,7 @@ import { PATH_MANAGER } from '../../../routes/paths';
 import SvgColor from '../../../components/svg-color';
 import { useAuthContext } from 'src/auth/useAuthContext';
 import { postTypeList } from 'src/utils/format';
+import { Icon } from '@iconify/react';
 
 // ----------------------------------------------------------------------
 
@@ -49,7 +50,7 @@ const navConfig = () => {
         {
           title: '회원관리',
           path: PATH_MANAGER.user.root,
-          icon: ICONS.user,
+          icon: <Icon icon="mdi:user-outline" style={{ fontSize: '1.5rem' }} />,
           children: [
             { title: '회원관리', path: PATH_MANAGER.user.list },
             { title: '회원추가', path: PATH_MANAGER.user.add },
@@ -62,11 +63,11 @@ const navConfig = () => {
         items: [
           {
             title: `${post_type.label}관리`,
-            path: PATH_MANAGER.user.root,
-            icon: ICONS.user,
+            path: PATH_MANAGER.post.root + `/${post_type.value}`,
+            icon: <Icon icon={post_type.icon} style={{ fontSize: '1.5rem' }} />,
             children: [
-              { title: `${post_type.label}관리`, path: PATH_MANAGER.post.list + `/${post_type.value}` },
-              { title: '회원추가', path: PATH_MANAGER.user.add },
+              { title: `${post_type.label}관리`, path: PATH_MANAGER.post.root + `/${post_type.value}/list` },
+              { title: `${post_type.label}추가`, path: PATH_MANAGER.post.root + `/${post_type.value}/add` },
             ],
           },
         ],
@@ -77,7 +78,7 @@ const navConfig = () => {
         {
           title: '설정관리',
           path: PATH_MANAGER.brand.root,
-          icon: ICONS.user,
+          icon: <Icon icon="uil:setting" style={{ fontSize: '1.5rem' }} />,
           children: [
             { title: '기본설정', path: PATH_MANAGER.brand.edit },
           ],

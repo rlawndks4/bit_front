@@ -11,6 +11,7 @@ import { apiManager } from "src/utils/api-manager";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import _ from "lodash";
 import { post_category_list } from "src/data/data";
+import { postTypeList } from "src/utils/format";
 const PostList = () => {
     const { setModal } = useModal()
     const defaultColumns = [
@@ -57,7 +58,7 @@ const PostList = () => {
                     <>
                         <IconButton>
                             <Icon icon='material-symbols:edit-outline' onClick={() => {
-                                router.push(`edit/${row?.id}`)
+                                router.push(`/manager/post/${router.query?.type}/edit/${row?.id}`)
                             }} />
                         </IconButton>
                         <IconButton onClick={() => {
@@ -93,11 +94,11 @@ const PostList = () => {
     })
     useEffect(() => {
         pageSetting();
-    }, [])
+    }, [router.query])
     const pageSetting = () => {
         let cols = defaultColumns;
         setColumns(cols)
-        onChangePage({ ...searchObj, page: 1, });
+        onChangePage({ ...searchObj, page: 1, type: router.query?.type });
     }
     const onChangePage = async (obj) => {
         setData({
@@ -127,7 +128,9 @@ const PostList = () => {
                         columns={columns}
                         searchObj={searchObj}
                         onChangePage={onChangePage}
-                        add_button_text={'게시물 추가'}
+                        add_button_text={`${_.find(postTypeList, { value: parseInt(router.query?.type) })?.label} 추가`}
+                        head_columns={[]}
+                        add_link={`/manager/post/${router.query?.type}/add`}
                     />
                 </Card>
             </Stack>
