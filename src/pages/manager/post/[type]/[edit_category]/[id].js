@@ -36,13 +36,22 @@ const PostEdit = () => {
   })
   useEffect(() => {
     settingPage();
-  }, [router.asPath])
+  }, [router.query])
   const settingPage = async () => {
+    setLoading(true);
     if (router.query?.edit_category == 'edit') {
       let data = await apiManager('posts', 'get', {
         id: router.query.id
       })
       setItem(data);
+    } else {
+      setItem({
+        post_file: undefined,
+        title: '',
+        shop_id: '',
+        note: '',
+        type: undefined
+      })
     }
     setLoading(false);
   }
@@ -58,9 +67,6 @@ const PostEdit = () => {
       router.push(`/manager/post/${router.query?.type}/list`);
     }
   }
-  useEffect(() => {
-    console.log(item)
-  }, [item])
   return (
     <>
       {!loading &&
