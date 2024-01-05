@@ -16,13 +16,6 @@ const PostList = () => {
     const { setModal } = useModal()
     const defaultColumns = [
         {
-            id: 'type',
-            label: '카테고리',
-            action: (row) => {
-                return post_category_list[row['type']]
-            }
-        },
-        {
             id: 'post_img',
             label: '메인이미지',
             action: (row) => {
