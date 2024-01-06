@@ -72,6 +72,14 @@ const BrandEdit = () => {
       value: 2,
       label: '회사정보'
     },
+    {
+      value: 3,
+      label: '배너관리'
+    },
+    {
+      value: 4,
+      label: 'SNS설정'
+    },
   ]
 
   useEffect(() => {
@@ -483,6 +491,209 @@ const BrandEdit = () => {
                             {
                               ...item,
                               ['fax_num']: e.target.value
+                            }
+                          )
+                        }} />
+                    </Stack>
+                  </Card>
+                </Grid>
+              </>}
+            {currentTab == 3 &&
+              <>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <Stack spacing={1}>
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          회사소개 배너
+                        </Typography>
+                        <Upload file={item.info_banner_file || item.info_banner_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['info_banner_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['info_banner_img']: '',
+                              ['info_banner_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          프로그램소개 배너
+                        </Typography>
+                        <Upload file={item.program_info_banner_file || item.program_info_banner_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['program_info_banner_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['program_info_banner_img']: '',
+                              ['program_info_banner_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          이용절차 및 상품안내 배너
+                        </Typography>
+                        <Upload file={item.guide_banner_file || item.guide_banner_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['guide_banner_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['guide_banner_img']: '',
+                              ['guide_banner_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                      </Stack>
+                    </Stack>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <Stack spacing={1}>
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          수익현황 배너
+                        </Typography>
+                        <Upload file={item.post_2_banner_file || item.post_2_banner_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['post_2_banner_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['post_2_banner_img']: '',
+                              ['post_2_banner_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                        <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                          언론보도 배너
+                        </Typography>
+                        <Upload file={item.post_3_banner_file || item.post_3_banner_img} onDrop={(acceptedFiles) => {
+                          const newFile = acceptedFiles[0];
+                          if (newFile) {
+                            setItem(
+                              {
+                                ...item,
+                                ['post_3_banner_file']: Object.assign(newFile, {
+                                  preview: URL.createObjectURL(newFile),
+                                })
+                              }
+                            );
+                          }
+                        }} onDelete={() => {
+                          setItem(
+                            {
+                              ...item,
+                              ['post_3_banner_img']: '',
+                              ['post_3_banner_file']: undefined,
+                            }
+                          )
+                        }}
+                        />
+                      </Stack>
+                    </Stack>
+                  </Card>
+                </Grid>
+              </>}
+            {currentTab == 4 &&
+              <>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <TextField
+                        label='유튜브링크'
+                        value={item.youtube_link}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['youtube_link']: e.target.value
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='블로그링크'
+                        value={item.blog_link}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['blog_link']: e.target.value
+                            }
+                          )
+                        }} />
+                    </Stack>
+                  </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Card sx={{ p: 2, height: '100%' }}>
+                    <Stack spacing={3}>
+                      <TextField
+                        label='카카오링크'
+                        value={item.kakao_link}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['kakao_link']: e.target.value
+                            }
+                          )
+                        }} />
+                      <TextField
+                        label='휴대폰링크'
+                        value={item.phone_link}
+                        onChange={(e) => {
+                          setItem(
+                            {
+                              ...item,
+                              ['phone_link']: e.target.value
                             }
                           )
                         }} />

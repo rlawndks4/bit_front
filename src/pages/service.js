@@ -26,9 +26,6 @@ const Help = () => {
         note: ''
     })
     useEffect(() => {
-        if (!user) {
-            router.push('/user/login')
-        }
         setCurrentTab(parseInt(router.query?.type ?? 0));
         setQuestObj({
             title: '',
@@ -129,7 +126,7 @@ const Help = () => {
                             </>}
                         {currentTab == 2 &&
                             <>
-                            
+
                             </>}
                     </>
                     :

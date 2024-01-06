@@ -26,7 +26,6 @@ const UserLayout = ({ children }) => {
                     <Header />
                     {children}
                     <Footer />
-                    <BottomMenu />
                     <ScrollToTop className='mui-fixed'>
                         <Fab size='small' aria-label='scroll back to top'>
                             <Icon icon='tabler:arrow-up' />

@@ -19,6 +19,10 @@ export const PATH_MANAGER = {
     list: path(ROOTS_MANAGER, '/user/list'),
     add: path(ROOTS_MANAGER, '/user/add'),
   },
+  request: {
+    root: path(ROOTS_MANAGER, '/request'),
+    list: path(ROOTS_MANAGER, '/request/list'),
+  },
   post: {
     root: path(ROOTS_MANAGER, '/post'),
     list: path(ROOTS_MANAGER, '/post/list'),

@@ -76,6 +76,18 @@ const navConfig = () => {
     {
       items: [
         {
+          title: '문의관리',
+          path: PATH_MANAGER.request.root,
+          icon: <Icon icon="mdi:user-outline" style={{ fontSize: '1.5rem' }} />,
+          children: [
+            { title: '문의관리', path: PATH_MANAGER.request.list },
+          ],
+        },
+      ],
+    },
+    {
+      items: [
+        {
           title: '설정관리',
           path: PATH_MANAGER.brand.root,
           icon: <Icon icon="uil:setting" style={{ fontSize: '1.5rem' }} />,

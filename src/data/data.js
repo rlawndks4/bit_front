@@ -24,10 +24,12 @@ export const LOCALSTORAGE = {
   USER_APP_MEMBERSHIP_OBJ: "user_app_membership_obj"
 }
 export const zBottomMenu = [
-  //{ name: `홈`, link: '/user/home', icon: <img src={defaultSettings.themeDnsData.logo_img} alt="#" style={{ height: '24px' }} />, className: 'master-dropdown-btn', allowLink: '/user/home' },
-  { name: '서비스소개', link: '/user/service-info?type=0', icon: <Icon icon='mdi:map-marker-check-outline' style={{ fontSize: '24px' }} />, className: '', allowLink: '/user/service-info' },
-  { name: '연동형API', link: '/user/api?type=0', icon: <Icon icon='mdi:comment-question-outline' style={{ fontSize: '24px' }} />, className: '', allowLink: '/user/api' },
-  { name: '고객센터', link: '/user/help', icon: <Icon icon='clarity:chat-bubble-line' style={{ fontSize: '24px' }} />, className: '', allowLink: '/user/help' },
+  { name: '회사소개', link: '/info', icon: <Icon icon='mdi:map-marker-check-outline' style={{ fontSize: '24px' }} />, className: '', allowLink: '/info' },
+  { name: '프로그램소개', link: '/program-info', icon: <Icon icon='mdi:comment-question-outline' style={{ fontSize: '24px' }} />, className: '', allowLink: '/program-info' },
+  { name: '이용절차 및 상품안내', link: '/guide', icon: <Icon icon='clarity:chat-bubble-line' style={{ fontSize: '24px' }} />, className: '', allowLink: '/guide' },
+  { name: '수익현황', link: '/post/list/2', icon: <Icon icon='clarity:chat-bubble-line' style={{ fontSize: '24px' }} />, className: '', allowLink: '/post/list/2' },
+  { name: '언론보도', link: '/post/list/3', icon: <Icon icon='clarity:chat-bubble-line' style={{ fontSize: '24px' }} />, className: '', allowLink: '/post/list/3' },
+  { name: '고객센터', link: '/service', icon: <Icon icon='clarity:chat-bubble-line' style={{ fontSize: '24px' }} />, className: '', allowLink: '/service' },
 ];
 export const zTabMenu = {
   'service-info': [

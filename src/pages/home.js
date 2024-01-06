@@ -47,7 +47,7 @@ const Home = () => {
             }}
         />
     );
-   
+
     return (
         <>
             {/* <HeadContent dns_data={dns_data} /> */}

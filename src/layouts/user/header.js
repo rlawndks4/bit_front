@@ -60,6 +60,8 @@ const Header = (props) => {
     const { logout, user } = useAuthContext();
     const { themeDnsData } = useSettingsContext();
 
+    const sns_list = [
+    ]
     return (
         <>
             <Wrappers>
@@ -77,7 +79,7 @@ const Header = (props) => {
                         ))}
                     </Row>
                     <Row style={{ alignItems: 'center', columnGap: '1rem' }}>
-                        ㅁㄴㅇ
+
                     </Row>
                 </Row>
             </Wrappers>
