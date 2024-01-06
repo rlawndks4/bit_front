@@ -43,7 +43,7 @@ const App = (props) => {
   return (
     <>
       <Head>
-        <title>{head_data?.name || headData?.name}</title>
+        <title>asd</title>
         <meta
           name='description'
           content={head_data?.og_description || headData?.og_description}
