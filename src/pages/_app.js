@@ -43,7 +43,7 @@ const App = (props) => {
   return (
     <>
       <Head>
-        <title>asd</title>
+        <title>{head_data?.name || headData?.name}</title>
         <meta
           name='description'
           content={head_data?.og_description || headData?.og_description}
@@ -88,7 +88,11 @@ const App = (props) => {
   );
 }
 App.getInitialProps = async (context) => {
-  const { ctx } = context;
+  const { ctx, Component } = context;
+  let pageProps = {}
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx)
+  }
   try {
     let head_data = {}
     const host = ctx?.req?.headers?.host ? ctx?.req?.headers.host.split(':')[0] : '';
@@ -98,15 +102,18 @@ App.getInitialProps = async (context) => {
       head_data = await res.json();
       return {
         head_data: head_data?.data,
+        pageProps,
       }
     } else {
       return {
         head_data: {},
+        pageProps,
       }
     }
   } catch (err) {
     return {
       head_data: {},
+      pageProps,
     }
   }
 };
