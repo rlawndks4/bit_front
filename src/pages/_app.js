@@ -88,11 +88,7 @@ const App = (props) => {
   );
 }
 App.getInitialProps = async (context) => {
-  const { ctx, Component } = context;
-  let pageProps = {}
-  if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx)
-  }
+  const { ctx } = context;
   try {
     let head_data = {}
     const host = ctx?.req?.headers?.host ? ctx?.req?.headers.host.split(':')[0] : '';
@@ -102,18 +98,15 @@ App.getInitialProps = async (context) => {
       head_data = await res.json();
       return {
         head_data: head_data?.data,
-        pageProps,
       }
     } else {
       return {
         head_data: {},
-        pageProps,
       }
     }
   } catch (err) {
     return {
       head_data: {},
-      pageProps,
     }
   }
 };
