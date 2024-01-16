@@ -53,13 +53,16 @@ position:relative;
   display:none;
 }
 `
-
+const IconImg = styled.img`
+height: 2rem;
+cursor: pointer;
+`
 const Header = (props) => {
     const router = useRouter();
 
     const { logout, user } = useAuthContext();
     const { themeDnsData } = useSettingsContext();
-
+    console.log(themeDnsData)
     const sns_list = [
     ]
     return (
@@ -68,7 +71,7 @@ const Header = (props) => {
                 <Row style={{ margin: '0 auto', width: '95%', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Row style={{ alignItems: 'center', columnGap: '1rem' }}>
                         <img src={themeDnsData?.logo_img} style={{ height: '29px', width: 'auto' }} onClick={() => {
-                            window.location.href = '/user/home'
+                            window.location.href = '/home'
                         }} />
                         {zBottomMenu.map((item, idx) => (
                             <>
@@ -79,7 +82,18 @@ const Header = (props) => {
                         ))}
                     </Row>
                     <Row style={{ alignItems: 'center', columnGap: '1rem' }}>
-
+                        <IconImg src={'assets/images/youtube.png'} onClick={() => {
+                            window.open(themeDnsData?.youtube_link);
+                        }} />
+                        <IconImg src={'assets/images/blog.png'} onClick={() => {
+                            window.open(themeDnsData?.blog_link);
+                        }} />
+                        <IconImg src={'assets/images/kakao.png'} style={{ borderRadius: '50%', height: '2.5rem' }} onClick={() => {
+                            window.open(themeDnsData?.kakao_link);
+                        }} />
+                        <a>
+                            <IconImg src={'assets/images/tel.png'} style={{ borderRadius: '50%', height: '2.5rem' }} />
+                        </a>
                     </Row>
                 </Row>
             </Wrappers>

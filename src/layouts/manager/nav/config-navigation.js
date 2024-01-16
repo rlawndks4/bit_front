@@ -58,6 +58,21 @@ const navConfig = () => {
         },
       ],
     },
+    {
+      items: [
+        {
+          title: '디자인관리',
+          path: PATH_MANAGER.design.root,
+          icon: <Icon icon="material-symbols:design-services-outline-rounded" style={{ fontSize: '1.5rem' }} />,
+          children: [
+            { title: '메인페이지관리', path: PATH_MANAGER.design.main },
+            { title: '회사소개관리', path: PATH_MANAGER.design.info },
+            { title: '프로그램소개관리', path: PATH_MANAGER.design.program_info },
+            { title: '이용절차 및 상품안내 관리', path: PATH_MANAGER.design.guide },
+          ],
+        },
+      ],
+    },
     ...(postTypeList.map((post_type => {
       return {
         items: [

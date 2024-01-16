@@ -28,6 +28,13 @@ export const PATH_MANAGER = {
     list: path(ROOTS_MANAGER, '/post/list'),
     add: path(ROOTS_MANAGER, '/post/add'),
   },
+  design: {
+    root: path(ROOTS_MANAGER, '/design'),
+    main: path(ROOTS_MANAGER, '/design/main'),
+    info: path(ROOTS_MANAGER, '/design/info'),
+    program_info: path(ROOTS_MANAGER, '/design/program-info'),
+    guide: path(ROOTS_MANAGER, '/design/guide'),
+  },
   brand: {
     root: path(ROOTS_MANAGER, '/brand'),
     edit: path(ROOTS_MANAGER, '/brand/edit'),

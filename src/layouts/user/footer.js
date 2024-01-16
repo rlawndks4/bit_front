@@ -54,7 +54,7 @@ export default function Footer() {
   const { pathname } = useRouter();
 
   const { themeDnsData } = useSettingsContext();
-  const isHome = (pathname === '/' || pathname === '/user/home' || pathname === '/user' || window.innerWidth <= 800);
+  const isHome = (pathname === '/' || pathname === '/home' || pathname === '/user' || window.innerWidth <= 800);
 
   const simpleFooter = (
     <Box

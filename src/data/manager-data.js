@@ -1,21 +1,24 @@
 
 export const react_quill_data = {
   modules: {
-    toolbar: [
-      [{ header: '1' }, { header: '2' }, { font: [] }],
-      [{ size: [] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
+    toolbar: {
+      container: [
+        [{ header: '1' }, { header: '2' }, { font: [] }],
+        [{ size: [] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [
+          { list: 'ordered' },
+          { list: 'bullet' },
+          { indent: '-1' },
+          { indent: '+1' },
+        ],
+        ['link', 'image', 'video'],
+        [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
+        [{ color: [] }],
+        ['clean'],
       ],
-      ['link', 'image', 'video'],
-      ['clean'],
-    ],
+    },
     clipboard: {
-      // toggle to add extra line breaks when pasting HTML:
       matchVisual: false,
     },
   },
@@ -34,7 +37,8 @@ export const react_quill_data = {
     'link',
     'image',
     'video',
-    'color'
+    'color',
+    'align',
   ]
 }
 
