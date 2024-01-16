@@ -46,7 +46,7 @@ margin: 5rem auto 1rem auto;
 font-size:${themeObj.font_size.size1};
 font-weight:bold;
 @media (max-width:1000px) {
-  font-size:${themeObj.font_size.size3};
+  font-size:${themeObj.font_size.size4};
 }
 `
 export const Title2 = styled.h2`

@@ -22,28 +22,21 @@ height: 48px;
 `
 const LINKS = [
   {
-    headline: '서비스소개',
+    headline: '회사소개',
+    link: '/info',
     children: [
-      { name: '문자', href: '/user/service-info/?type=0' },
-      { name: '선거문자', href: '/user/service-info/?type=1' },
-      { name: '알림톡', href: '/user/service-info/?type=2' },
-      { name: '친구톡', href: '/user/service-info/?type=3' },
     ],
   },
   {
-    headline: '연동형API',
+    headline: '프로그램소개',
+    link: '/program-info',
     children: [
-      { name: '문자API', href: '/user/api/?type=0' },
-      { name: '알림톡API', href: '/user/api/?type=1' },
-      { name: '친구톡API', href: '/user/api/?type=2' },
     ],
   },
   {
-    headline: '고객센터',
+    headline: '이용절차 및 상품안내',
+    link: '/guide',
     children: [
-      { name: '문의하기', href: '/user/help/?type=0' },
-      { name: '기능요청', href: '/user/help/?type=1' },
-      { name: '문의내역', href: '/user/help/?type=2' },
     ],
   },
 ];
@@ -51,7 +44,7 @@ const LINKS = [
 // ----------------------------------------------------------------------
 
 export default function Footer() {
-  const { pathname } = useRouter();
+  const { pathname, push } = useRouter();
 
   const { themeDnsData } = useSettingsContext();
   const isHome = (pathname === '/' || pathname === '/home' || pathname === '/user' || window.innerWidth <= 800);
@@ -143,21 +136,13 @@ export default function Footer() {
                   spacing={2}
                   alignItems={{ xs: 'center', md: 'flex-start' }}
                 >
-                  <Typography component="div" variant="overline">
+                  <Typography component="div" variant="overline" style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      push(list.link)
+                    }}
+                  >
                     {list.headline}
                   </Typography>
-
-                  {list.children.map((link) => (
-                    <Link
-                      key={link.name}
-                      component={NextLink}
-                      href={link.href}
-                      color="inherit"
-                      variant="body2"
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
                 </Stack>
               ))}
             </Stack>

@@ -82,17 +82,17 @@ const Header = (props) => {
                         ))}
                     </Row>
                     <Row style={{ alignItems: 'center', columnGap: '1rem' }}>
-                        <IconImg src={'assets/images/youtube.png'} onClick={() => {
+                        <IconImg src={'/assets/images/youtube.png'} onClick={() => {
                             window.open(themeDnsData?.youtube_link);
                         }} />
-                        <IconImg src={'assets/images/blog.png'} onClick={() => {
+                        <IconImg src={'/assets/images/blog.png'} onClick={() => {
                             window.open(themeDnsData?.blog_link);
                         }} />
-                        <IconImg src={'assets/images/kakao.png'} style={{ borderRadius: '50%', height: '2.5rem' }} onClick={() => {
+                        <IconImg src={'/assets/images/kakao.png'} style={{ borderRadius: '50%', height: '2.5rem' }} onClick={() => {
                             window.open(themeDnsData?.kakao_link);
                         }} />
                         <a href={`tel:${themeDnsData?.phone_num}`}>
-                            <IconImg src={'assets/images/tel.png'} style={{ borderRadius: '50%', height: '2.5rem' }} />
+                            <IconImg src={'/assets/images/tel.png'} style={{ borderRadius: '50%', height: '2.5rem' }} />
                         </a>
                     </Row>
                 </Row>

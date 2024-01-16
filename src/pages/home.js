@@ -1,83 +1,59 @@
-import { m, useScroll, useSpring } from 'framer-motion';
-// next
-import Head from 'next/head';
-// @mui
-import { useTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
-// layouts
-// sections
-import {
-    HomeHero,
-    HomeMinimal,
-    HomeDarkMode,
-    HomeLookingFor,
-    HomeForDesigner,
-    HomeColorPresets,
-    HomePricingPlans,
-    HomeAdvertisement,
-    HomeCleanInterfaces,
-    HomeHugePackElements,
-} from 'src/views/home';
-import UserLayout from 'src/layouts/user/UserLayout';
+import { Icon } from "@iconify/react";
+import { Button, Tab, Tabs } from "@mui/material";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Col, Row, Title, Title2, Title3, Wrappers } from "src/components/elements/styled-components";
+import { useSettingsContext } from "src/components/settings";
+import { zTabMenu } from "src/data/data";
+import UserLayout from "src/layouts/user/UserLayout";
+import HomeBanner from "src/views/section/HomeBanner";
+import styled from "styled-components";
 
-const Home = () => {
+const BannerContainer = styled.div`
+    width:100%;
+    padding: 160px 0;
+    background-size: cover;
+    display:flex;
+    flex-direction:column;
+    @media (max-width:1000px) {
+        padding: 80px 0;
+    }
+`
+const ServiceInfo = () => {
+    const router = useRouter();
+    const [currentTab, setCurrentTab] = useState(0);
+    useEffect(() => {
+        setCurrentTab(parseInt(router.query?.type ?? 0));
+    }, [router.query])
+    const { themeDnsData, themePostCategoryList } = useSettingsContext();
+    const [contentList, setContentList] = useState([]);
 
-    const theme = useTheme();
+    const [posts, setPosts] = useState({});
 
-    const { scrollYProgress } = useScroll();
-
-    const scaleX = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001,
-    });
-
-    const progress = (
-        <m.div
-            style={{
-                top: 0,
-                left: 0,
-                right: 0,
-                height: 3,
-                zIndex: 1999,
-                position: 'fixed',
-                transformOrigin: '0%',
-                backgroundColor: theme.palette.primary.main,
-                scaleX,
-            }}
-        />
-    );
+    useEffect(() => {
+        if (themeDnsData?.id > 0) {
+            mainPageSetting();
+        }
+    }, [themeDnsData])
+    const mainPageSetting = async () => {
+        console.log(themeDnsData)
+        setContentList(themeDnsData?.main_obj);
+    }
 
     return (
         <>
-            {/* <HeadContent dns_data={dns_data} /> */}
-            {progress}
-            <HomeHero />
-            <Box
-                sx={{
-                    overflow: 'hidden',
-                    position: 'relative',
-                    bgcolor: 'background.default',
-                }}
-            >
-                <HomeMinimal />
+            <BannerContainer style={{ backgroundImage: `url(${themeDnsData?.main_banner_img || '/assets/background/overlay_4.jpg'})` }}>
+                <Title style={{ color: '#fff', margin: 'auto' }}>회사소개</Title>
+            </BannerContainer>
+            <Wrappers>
+                {contentList.map((content, index) => (
+                    <>
 
-                {/* <HomeHugePackElements /> */}
-
-                <HomeForDesigner />
-
-                <HomeDarkMode />
-
-                <HomePricingPlans />
-
-                <HomeLookingFor />
-
-                <HomeAdvertisement />
-            </Box>
+                    </>
+                ))}
+            </Wrappers>
         </>
-    );
+    )
 }
-
-Home.getLayout = (page) => <UserLayout> {page} </UserLayout>;
-
-export default Home
+ServiceInfo.getLayout = (page) => <UserLayout>{page}</UserLayout>;
+export default ServiceInfo;
