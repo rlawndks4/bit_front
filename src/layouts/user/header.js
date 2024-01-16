@@ -91,7 +91,7 @@ const Header = (props) => {
                         <IconImg src={'assets/images/kakao.png'} style={{ borderRadius: '50%', height: '2.5rem' }} onClick={() => {
                             window.open(themeDnsData?.kakao_link);
                         }} />
-                        <a>
+                        <a href={`tel:${themeDnsData?.phone_num}`}>
                             <IconImg src={'assets/images/tel.png'} style={{ borderRadius: '50%', height: '2.5rem' }} />
                         </a>
                     </Row>
