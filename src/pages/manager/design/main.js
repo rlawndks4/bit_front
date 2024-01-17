@@ -184,6 +184,18 @@ const MainEdit = () => {
                                             )
                                         }}
                                         />
+
+                                        <TextField
+                                            label={'제목'}
+                                            value={item.main_banner_text}
+                                            onChange={(e) => {
+                                                setItem(
+                                                    {
+                                                        ...item,
+                                                        ['main_banner_text']: e.target.value,
+                                                    }
+                                                )
+                                            }} />
                                     </Stack>
                                 </Stack>
                             </Card>

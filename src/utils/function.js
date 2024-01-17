@@ -345,3 +345,8 @@ export const getPointType = (data) => {
     }
   }
 }
+export const makeYoutubeEmbed = (link) => {
+  let split_list = link.split('?v=');
+
+  return `https://www.youtube.com/embed/${split_list[1]}`
+}

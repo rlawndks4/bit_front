@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { Button, Chip, IconButton } from "@mui/material";
+import { Button, Chip, Drawer, IconButton } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "src/auth/useAuthContext";
@@ -56,21 +56,52 @@ position:relative;
 const IconImg = styled.img`
 height: 2rem;
 cursor: pointer;
+@media (max-width:800px) {
+    height: 1.5rem;
+}
+`
+const IconImgL = styled.img`
+height: 2.5rem;
+cursor: pointer;
+@media (max-width:800px) {
+    height: 1.8rem;
+}
+`
+const LogoImg = styled.img`
+height: 29px;
+width: auto;
+@media (max-width:800px) {
+}
+`
+
+const MenuButton = styled.div`
+display: none;
+@media (max-width:800px) {
+  display:flex;
+}
 `
 const Header = (props) => {
     const router = useRouter();
 
     const { logout, user } = useAuthContext();
     const { themeDnsData } = useSettingsContext();
-    console.log(themeDnsData)
+    const [sideMenuOpen, setSideMenuOpen] = useState(false);
     const sns_list = [
     ]
     return (
         <>
             <Wrappers>
-                <Row style={{ margin: '0 auto', width: '95%', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Row style={{ alignItems: 'center', columnGap: '1rem' }}>
-                        <img src={themeDnsData?.logo_img} style={{ height: '29px', width: 'auto' }} onClick={() => {
+                <Row style={{ margin: '0 auto', width: '95%', justifyContent: 'space-between', alignItems: 'center', position: 'relative' }}>
+                    <Row style={{ alignItems: 'center', columnGap: '1rem', marginRight: 'auto' }}>
+                        <MenuButton>
+                            <IconButton
+                                sx={iconButtonStyle}
+                                onClick={() => setSideMenuOpen(true)}
+                            >
+                                <Icon icon={'basil:menu-solid'} fontSize={'2rem'} />
+                            </IconButton>
+                        </MenuButton>
+                        <LogoImg src={themeDnsData?.logo_img} onClick={() => {
                             window.location.href = '/home'
                         }} />
                         {zBottomMenu.map((item, idx) => (
@@ -81,24 +112,71 @@ const Header = (props) => {
                             </>
                         ))}
                     </Row>
-                    <Row style={{ alignItems: 'center', columnGap: '1rem' }}>
+                    <Row style={{ alignItems: 'center', columnGap: '1rem', marginLeft: 'auto' }}>
                         <IconImg src={'/assets/images/youtube.png'} onClick={() => {
                             window.open(themeDnsData?.youtube_link);
                         }} />
                         <IconImg src={'/assets/images/blog.png'} onClick={() => {
                             window.open(themeDnsData?.blog_link);
                         }} />
-                        <IconImg src={'/assets/images/kakao.png'} style={{ borderRadius: '50%', height: '2.5rem' }} onClick={() => {
+                        <IconImgL src={'/assets/images/kakao.png'} style={{ borderRadius: '50%' }} onClick={() => {
                             window.open(themeDnsData?.kakao_link);
                         }} />
                         <a href={`tel:${themeDnsData?.phone_num}`}>
-                            <IconImg src={'/assets/images/tel.png'} style={{ borderRadius: '50%', height: '2.5rem' }} />
+                            <IconImgL src={'/assets/images/tel.png'} style={{ borderRadius: '50%' }} />
                         </a>
                     </Row>
                 </Row>
             </Wrappers>
             <PaddingTop />
+            <Drawer
+                anchor={'left'}
+                open={sideMenuOpen}
+                onClose={() => {
+                    setSideMenuOpen(false);
+                }}
+                style={{
+                }}
+            >
+                <ColumnMenuContainer
+                    className="none-scroll"
+                >
+                    <ColumnMenuTitle>마이페이지</ColumnMenuTitle>
+                    {zBottomMenu.map((item, idx) => (
+                        <>
+                            <ColumnMenuTitle onClick={() => { router.push(item.link) }}>
+                                {item.name}
+                            </ColumnMenuTitle>
+                        </>
+                    ))}
+                </ColumnMenuContainer>
+            </Drawer>
         </>
     )
+}
+const ColumnMenuContainer = styled.div`
+        width: 400px;
+        padding:0 2rem 4rem 2rem;
+        height:100vh;
+        overflow-y:auto;
+        display:flex;
+        flex-direction:column;
+        @media (max-width:800px){
+          width: 70vw;
+        padding:0 5vw 4rem 5vw;
+}
+        `
+const ColumnMenuTitle = styled.div`
+        margin: 2rem 0 0.5rem 0;
+        font-weight: bold;
+`
+const ColumnMenuContent = styled.div`
+        display:flex;
+        align-items:center;
+        padding:0.25rem 0;
+        cursor:pointer;
+        `
+const iconButtonStyle = {
+    padding: '0.1rem',
 }
 export default Header;

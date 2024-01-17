@@ -57,3 +57,4 @@ const ServiceInfo = () => {
 }
 ServiceInfo.getLayout = (page) => <UserLayout>{page}</UserLayout>;
 export default ServiceInfo;
+//@@@@@@@@@@@@

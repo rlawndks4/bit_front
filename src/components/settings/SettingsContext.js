@@ -6,6 +6,7 @@ import { defaultPreset, getPresets, presetsOption } from './presets';
 import { useTheme } from '@emotion/react';
 import axios from 'src/utils/axios';
 import { setLocalStorage } from 'src/utils/local-storage';
+import { apiManager } from 'src/utils/api-manager';
 // ----------------------------------------------------------------------
 
 const initialState = {
@@ -109,7 +110,10 @@ export function SettingsProvider({ children }) {
       let dns_data = {};
       const { data: response } = await axios.get(`/api/domain?dns=${process.env.IS_TEST == 1 ? 'localhost' : window.location.host.split(':')[0]}`);
       dns_data = response?.data;
-      onChangeDnsData(dns_data);
+      let setting = await apiManager(`brands`, 'get', {
+        id: dns_data?.id,
+      })
+      onChangeDnsData(setting);
     } catch (err) {
       console.log(err)
     }

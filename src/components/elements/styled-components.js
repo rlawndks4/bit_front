@@ -71,9 +71,17 @@ font-size:${themeObj.font_size.size3};
 font-weight:bold;
 `
 export const Wrappers = styled.div`
-max-width:1200px;
+max-width:1000px;
 margin:0 auto;
 width:90%;
 display: flex;
 flex-direction: column;
+`
+export const BlackText = styled.div`
+color: #000;
+font-weight: bold;
+`
+export const RedText = styled.div`
+color: red;
+font-weight: bold;
 `
