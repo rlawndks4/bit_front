@@ -350,3 +350,13 @@ export const makeYoutubeEmbed = (link) => {
 
   return `https://www.youtube.com/embed/${split_list[1]}`
 }
+export const getMaxPage = (total, page_size) => {
+  if (total == 0) {
+    return 1;
+  }
+  if (total % page_size == 0) {
+    return parseInt(total / page_size);
+  } else {
+    return parseInt(total / page_size) + 1;
+  }
+}

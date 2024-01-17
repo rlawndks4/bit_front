@@ -15,7 +15,7 @@ import { useRouter } from 'next/router';
 import { Icon } from '@iconify/react';
 import { styled as muiStyled } from '@mui/material';
 import { useTheme } from '@emotion/react';
-import { returnMoment } from 'src/utils/function';
+import { getMaxPage, returnMoment } from 'src/utils/function';
 import { Spinner } from 'evergreen-ui';
 // ----------------------------------------------------------------------
 const TableHeaderContainer = styled.div`
@@ -54,16 +54,7 @@ export default function ManagerTable(props) {
     setZColumn(column_list);
     setZHeadColumn(head_column_list);
   }
-  const getMaxPage = (total, page_size) => {
-    if (total == 0) {
-      return 1;
-    }
-    if (total % page_size == 0) {
-      return parseInt(total / page_size);
-    } else {
-      return parseInt(total / page_size) + 1;
-    }
-  }
+
   if (!(zColumn.length > 0)) {
     return (
       <>
