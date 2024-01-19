@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "src/auth/useAuthContext";
 import { Col, Row, Title, Title2, Title3, Wrappers } from "src/components/elements/styled-components";
 import { useSettingsContext } from "src/components/settings";
+import { TableNoData } from "src/components/table";
 import { zTabMenu } from "src/data/data";
 import UserLayout from "src/layouts/user/UserLayout";
 import { apiManager } from "src/utils/api-manager";
@@ -86,17 +87,29 @@ const Help = () => {
             </BannerContainer>
             <Wrappers style={{ maxWidth: '1200px', marginTop: '4rem' }}>
                 <ContentWrappers>
-                    {data?.content && data?.content.map((item) => (
-                        <>
-                            <ItemContianer onClick={() => {
-                                router.push(`/post/${item?.id}`)
-                            }}>
-                                <MainImg src={item?.post_img} />
-                                <MainTitle>{item?.title}</MainTitle>
-                                <div style={{ fontSize: '0.7rem', marginTop: '0.25rem' }}>{item?.created_at}</div>
-                            </ItemContianer>
-                        </>
-                    ))}
+                    {data?.content && <>
+                        {data?.content?.length > 0 ?
+                            <>
+                                {data?.content.map((item) => (
+                                    <>
+                                        <ItemContianer onClick={() => {
+                                            router.push(`/post/${item?.id}`)
+                                        }}>
+                                            <MainImg src={item?.post_img} />
+                                            <MainTitle>{item?.title}</MainTitle>
+                                            <div style={{ fontSize: '0.7rem', marginTop: '0.25rem' }}>{item?.created_at}</div>
+                                        </ItemContianer>
+                                    </>
+                                ))}
+                            </>
+                            :
+                            <>
+                                <div style={{ margin: 'auto' }}>
+                                    <TableNoData isNotFound={true} />
+                                </div>
+                            </>}
+
+                    </>}
                 </ContentWrappers>
                 <Pagination
                     sx={{ margin: '1rem auto' }}

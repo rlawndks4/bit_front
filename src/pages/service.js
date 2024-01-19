@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "src/auth/useAuthContext";
 import { Col, Row, Title, Title2, Title3, Wrappers } from "src/components/elements/styled-components";
 import { useSettingsContext } from "src/components/settings";
+import { TableNoData } from "src/components/table";
 import { zTabMenu } from "src/data/data";
 import UserLayout from "src/layouts/user/UserLayout";
 import { apiManager } from "src/utils/api-manager";
@@ -42,9 +43,10 @@ const Help = () => {
     const { user } = useAuthContext();
     const [currentTab, setCurrentTab] = useState(0);
     const [data, setData] = useState({});
+    const [noticeData, setNoticeData] = useState({});
     const [searchObj, setSearchObj] = useState({
         page: 1,
-        page_size: 10,
+        page_size: 50,
         s_dt: '',
         e_dt: '',
         search: '',
@@ -65,6 +67,7 @@ const Help = () => {
     }, [router.query])
     const pageSetting = () => {
         onChangePage({ ...searchObj, page: 1, type: 1 });
+        onChangeNoticePage({ ...searchObj, page: 1, type: 0 });
     }
     const onChangePage = async (obj) => {
         setData({
@@ -74,6 +77,17 @@ const Help = () => {
         let data_ = await apiManager('posts', 'list', obj);
         if (data_) {
             setData(data_);
+        }
+        setSearchObj(obj);
+    }
+    const onChangeNoticePage = async (obj) => {
+        setNoticeData({
+            ...noticeData,
+            content: undefined
+        })
+        let data_ = await apiManager('posts', 'list', obj);
+        if (data_) {
+            setNoticeData(data_);
         }
         setSearchObj(obj);
     }
@@ -104,26 +118,69 @@ const Help = () => {
                         <div>블로그</div>
                     </Col>
                 </Row>
+                <Title2>공지사항</Title2>
+                <Col>
+                    {noticeData?.content && <>
+                        {noticeData?.content?.length > 0 ?
+                            <>
+                                {noticeData?.content.map((item, idx) => (
+                                    <>
+                                        <Accordion key={item?.id} style={{ boxShadow: "none", background: 'transparent', width: '100%', wordBreak: 'break-all' }}>
+                                            <AccordionSummary expandIcon={<Icon icon="eva:arrow-ios-downward-fill" />}>
+                                                <Typography variant="subtitle1">{item?.title}</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <ReactQuill
+                                                    className='none-padding'
+                                                    value={item?.note ?? `<body></body>`}
+                                                    readOnly={true}
+                                                    theme={"bubble"}
+                                                    bounds={'.app'}
+                                                />
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </>
+                                ))}
+                            </>
+                            :
+                            <>
+                                <div style={{ margin: 'auto' }}>
+                                    <TableNoData isNotFound={true} />
+                                </div>
+                            </>}
+                    </>}
+                </Col>
                 <Title2>자주 묻는 질문</Title2>
                 <Col>
-                    {data?.content && data?.content.map((item, idx) => (
-                        <>
-                            <Accordion key={item?.id} style={{ boxShadow: "none", background: 'transparent', width: '100%', wordBreak: 'break-all' }}>
-                                <AccordionSummary expandIcon={<Icon icon="eva:arrow-ios-downward-fill" />}>
-                                    <Typography variant="subtitle1">{item?.title}</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <ReactQuill
-                                        className='none-padding'
-                                        value={item?.note ?? `<body></body>`}
-                                        readOnly={true}
-                                        theme={"bubble"}
-                                        bounds={'.app'}
-                                    />
-                                </AccordionDetails>
-                            </Accordion>
-                        </>
-                    ))}
+                    {data?.content && <>
+                        {data?.content?.length > 0 ?
+                            <>
+                                {data?.content.map((item, idx) => (
+                                    <>
+                                        <Accordion key={item?.id} style={{ boxShadow: "none", background: 'transparent', width: '100%', wordBreak: 'break-all' }}>
+                                            <AccordionSummary expandIcon={<Icon icon="eva:arrow-ios-downward-fill" />}>
+                                                <Typography variant="subtitle1">{item?.title}</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <ReactQuill
+                                                    className='none-padding'
+                                                    value={item?.note ?? `<body></body>`}
+                                                    readOnly={true}
+                                                    theme={"bubble"}
+                                                    bounds={'.app'}
+                                                />
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </>
+                                ))}
+                            </>
+                            :
+                            <>
+                                <div style={{ margin: 'auto' }}>
+                                    <TableNoData isNotFound={true} />
+                                </div>
+                            </>}
+                    </>}
                 </Col>
             </Wrappers>
 
