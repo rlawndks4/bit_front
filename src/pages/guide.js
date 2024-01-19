@@ -24,6 +24,24 @@ const BannerContainer = styled.div`
         padding: 80px 0;
     }
 `
+const PcImg = styled.img`
+display: flex;
+@media (max-width:1000px) {
+    display: none;
+}
+`
+const MobileImg = styled.img`
+display: none;
+@media (max-width:1000px) {
+    display: flex;
+}
+`
+const Content = styled.div`
+display: flex;
+flex-wrap: wrap;
+margin:2rem 0;
+justify-content: space-between;
+`
 const ServiceInfo = () => {
     const router = useRouter();
     const [currentTab, setCurrentTab] = useState(0);
@@ -33,8 +51,7 @@ const ServiceInfo = () => {
     const { themeDnsData, themePostCategoryList } = useSettingsContext();
     const [contentList, setContentList] = useState([]);
 
-    const [posts, setPosts] = useState({});
-
+    const [itemTab, setItemTab] = useState(0);
     useEffect(() => {
         if (themeDnsData?.id > 0) {
             mainPageSetting();
@@ -53,8 +70,52 @@ const ServiceInfo = () => {
             <Wrappers>
                 {contentList.map((content, index) => (
                     <>
-                        <FadeInUp style={{ marginTop: '2rem' }}>
-
+                        <FadeInUp style={{ marginTop: '4rem' }}>
+                            {content.type == 'editor' &&
+                                <>
+                                    <ReactQuill
+                                        className='none-padding'
+                                        value={content?.content ?? `<body></body>`}
+                                        readOnly={true}
+                                        theme={"bubble"}
+                                        bounds={'.app'}
+                                    />
+                                </>}
+                            {content.type == 'procedure_img' &&
+                                <>
+                                    <Title2 style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                                        {themeDnsData?.name} 이용절차
+                                    </Title2>
+                                    <PcImg src={content?.img} />
+                                    <MobileImg src={content?.mobile_img} />
+                                </>}
+                            {content.type == 'product_info' &&
+                                <>
+                                    <Title2 style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                                        {themeDnsData?.name} 상품안내
+                                    </Title2>
+                                    <Row style={{ columnGap: '1rem' }}>
+                                        {content?.list && content?.list.map((cont, idx) => (
+                                            <>
+                                                <Button variant={idx == itemTab ? 'contained' : 'outlined'} style={{ width: '33%', height: '48px' }} onClick={() => {
+                                                    setItemTab(idx)
+                                                }} >{cont?.title}</Button>
+                                            </>
+                                        ))}
+                                    </Row>
+                                    {content?.list && content?.list.map((cont, idx) => (
+                                        <>
+                                            <Content style={{ flexDirection: `${idx % 2 == 0 ? 'row' : 'row-reverse'}` }}>
+                                                <Col>
+                                                    <Title2>{cont?.title}</Title2>
+                                                    <Title3>{cont?.sub_title}</Title3>
+                                                    <div style={{ maxWidth: '500px' }}>{cont?.note}</div>
+                                                </Col>
+                                                <img src={cont?.img} style={{ maxWidth: '400px' }} />
+                                            </Content>
+                                        </>
+                                    ))}
+                                </>}
                         </FadeInUp>
                     </>
                 ))}

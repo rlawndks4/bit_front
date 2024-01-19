@@ -49,11 +49,24 @@ const ServiceInfo = () => {
             <BannerContainer style={{ backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(${themeDnsData?.program_info_banner_img || '/assets/background/overlay_4.jpg'})` }}>
                 <Title style={{ color: '#fff', margin: 'auto' }}>프로그램소개</Title>
             </BannerContainer>
-            <Wrappers>
+            <Wrappers style={{ maxWidth: '3000px', width: '100%' }}>
                 {contentList.map((content, index) => (
                     <>
-                        <FadeInUp style={{ marginTop: '2rem' }}>
-
+                        <FadeInUp style={{ marginTop: `${content.type == 'img' ? '0' : '2rem'}` }}>
+                            {content.type == 'editor' &&
+                                <>
+                                    <ReactQuill
+                                        className='none-padding'
+                                        value={content?.content ?? `<body></body>`}
+                                        readOnly={true}
+                                        theme={"bubble"}
+                                        bounds={'.app'}
+                                    />
+                                </>}
+                            {content.type == 'img' &&
+                                <>
+                                    <img src={content?.img} style={{ width: '100%' }} />
+                                </>}
                         </FadeInUp>
                     </>
                 ))}

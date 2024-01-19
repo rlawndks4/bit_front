@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { Button, Card, Grid, Tab, Tabs } from "@mui/material";
+import { Button, Card, Grid, Stack, Tab, Tabs, TextField } from "@mui/material";
 import { useAnimation } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -11,6 +11,9 @@ import UserLayout from "src/layouts/user/UserLayout";
 import { makeYoutubeEmbed } from "src/utils/function";
 import styled from "styled-components";
 import dynamic from "next/dynamic";
+import { useModal } from "src/components/dialog/ModalProvider";
+import toast from "react-hot-toast";
+import { apiManager } from "src/utils/api-manager";
 const ReactQuill = dynamic(() => import('react-quill'), {
     ssr: false,
     loading: () => <p>Loading ...</p>,
@@ -84,7 +87,7 @@ transition: 0.5s;
 `
 const ServiceInfo = () => {
     const router = useRouter();
-
+    const { setModal } = useModal()
     const controls = useAnimation();
     const [currentTab, setCurrentTab] = useState(0);
     useEffect(() => {
@@ -93,6 +96,9 @@ const ServiceInfo = () => {
     const { themeDnsData, themePostCategoryList } = useSettingsContext();
     const [contentList, setContentList] = useState([]);
 
+    const [request, setRequest] = useState({
+
+    })
     useEffect(() => {
         if (themeDnsData?.id > 0) {
             mainPageSetting();
@@ -110,6 +116,14 @@ const ServiceInfo = () => {
         slidesToShow: window.innerWidth > 1000 ? 4 : 2,
         slidesToScroll: 1,
         dots: false,
+    }
+    const onSave = async () => {
+        let result = undefined
+        result = await apiManager('requests', 'create', request);
+        if (result) {
+            toast.success("성공적으로 저장 되었습니다.");
+            window.location.reload();
+        }
     }
     return (
         <>
@@ -220,6 +234,66 @@ const ServiceInfo = () => {
                         </FadeInUp>
                     </>
                 ))}
+                <Card sx={{ p: 2, height: '100%', maxWidth: '700px', margin: '4rem auto', width: '100%' }}>
+                    <Stack spacing={3}>
+                        <Title2 style={{ textAlign: 'center' }}>
+                            문의하기
+                        </Title2>
+                        <TextField
+                            label='이름'
+                            value={request.name}
+                            onChange={(e) => {
+                                setRequest(
+                                    {
+                                        ...request,
+                                        ['name']: e.target.value
+                                    }
+                                )
+                            }} />
+                        <TextField
+                            label='전화번호'
+                            value={request.phone_num}
+                            onChange={(e) => {
+                                setRequest(
+                                    {
+                                        ...request,
+                                        ['phone_num']: e.target.value
+                                    }
+                                )
+                            }} />
+                        <TextField
+                            label='추천인'
+                            value={request.recommend_name}
+                            onChange={(e) => {
+                                setRequest(
+                                    {
+                                        ...request,
+                                        ['recommend_name']: e.target.value
+                                    }
+                                )
+                            }} />
+                        <TextField
+                            multiline={true}
+                            rows={5}
+                            label='내용'
+                            value={request.note}
+                            onChange={(e) => {
+                                setRequest(
+                                    {
+                                        ...request,
+                                        ['note']: e.target.value
+                                    }
+                                )
+                            }} />
+                        <Button variant="outlined" style={{ height: '48px' }} onClick={() => {
+                            setModal({
+                                func: () => { onSave() },
+                                icon: 'material-symbols:edit-outline',
+                                title: '저장 하시겠습니까?'
+                            })
+                        }}>저장</Button>
+                    </Stack>
+                </Card>
             </Wrappers>
         </>
     )

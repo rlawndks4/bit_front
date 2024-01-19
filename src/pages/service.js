@@ -9,13 +9,14 @@ import styled from "styled-components";
 
 const BannerContainer = styled.div`
     width:100%;
-    padding: 80px 0;
-    background-image: url('/assets/images/contact/hero.jpg');
+    padding: 160px 0;
     background-size: cover;
     display:flex;
     flex-direction:column;
+    @media (max-width:1000px) {
+        padding: 80px 0;
+    }
 `
-
 const Help = () => {
     const router = useRouter();
 
@@ -34,15 +35,8 @@ const Help = () => {
     }, [router.query])
     return (
         <>
-            <BannerContainer>
-                {zTabMenu['help'].map((item, idx) => {
-                    if (currentTab == idx) {
-                        return <>
-                            <Title style={{ color: '#fff', margin: 'auto' }}>{item.banner.title}</Title>
-                            <Title2 style={{ color: '#fff', margin: '2rem auto auto auto', fontWeight: 'normal', textAlign: 'center' }}>{item.banner.sub_title}</Title2>
-                        </>
-                    }
-                })}
+            <BannerContainer style={{ backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url('/assets/images/contact/hero.jpg')` }}>
+                <Title style={{ color: '#fff', margin: 'auto' }}>고객센터</Title>
             </BannerContainer>
             <Wrappers>
 

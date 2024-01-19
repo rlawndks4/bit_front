@@ -20,7 +20,10 @@ body {
   display: none;
   /* Chrome, Safari, Opera*/
 }
-
+iframe.ql-video{
+  height: 350px;
+  width: 500px;
+}
 .table-container::-webkit-scrollbar {
   width: 12px;
   /* 스크롤바의 너비 */

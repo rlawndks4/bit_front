@@ -124,29 +124,6 @@ export default function Footer() {
             </Typography>
           </Grid>
 
-          <Grid item xs={12} md={7}>
-            <Stack
-              spacing={5}
-              justifyContent="space-between"
-              direction={{ xs: 'column', md: 'row' }}
-            >
-              {LINKS.map((list) => (
-                <Stack
-                  key={list.headline}
-                  spacing={2}
-                  alignItems={{ xs: 'center', md: 'flex-start' }}
-                >
-                  <Typography component="div" variant="overline" style={{ cursor: 'pointer' }}
-                    onClick={() => {
-                      push(list.link)
-                    }}
-                  >
-                    {list.headline}
-                  </Typography>
-                </Stack>
-              ))}
-            </Stack>
-          </Grid>
         </Grid>
 
         <Typography

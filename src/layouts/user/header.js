@@ -68,8 +68,9 @@ cursor: pointer;
 }
 `
 const LogoImg = styled.img`
-height: 29px;
+height: 48px;
 width: auto;
+cursor: pointer;
 @media (max-width:800px) {
 }
 `
@@ -141,10 +142,9 @@ const Header = (props) => {
                 <ColumnMenuContainer
                     className="none-scroll"
                 >
-                    <ColumnMenuTitle>마이페이지</ColumnMenuTitle>
                     {zBottomMenu.map((item, idx) => (
                         <>
-                            <ColumnMenuTitle onClick={() => { router.push(item.link) }}>
+                            <ColumnMenuTitle onClick={() => { router.push(item.link); setSideMenuOpen(false) }}>
                                 {item.name}
                             </ColumnMenuTitle>
                         </>
@@ -167,15 +167,11 @@ const ColumnMenuContainer = styled.div`
 }
         `
 const ColumnMenuTitle = styled.div`
-        margin: 2rem 0 0.5rem 0;
+        margin: 0 0 0.5rem 0;
         font-weight: bold;
+        border-bottom: 1px solid #ccc;
+        padding: 1rem 0;
 `
-const ColumnMenuContent = styled.div`
-        display:flex;
-        align-items:center;
-        padding:0.25rem 0;
-        cursor:pointer;
-        `
 const iconButtonStyle = {
     padding: '0.1rem',
 }

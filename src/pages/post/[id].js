@@ -56,6 +56,12 @@ const Help = () => {
         setItem(data);
         setLoading(false);
     }
+    const makePostItem = (note = "") => {
+
+        let result = note;
+        result = result.replaceAll('<iframe', `<iframe style='width:500px;'`)
+        return result;
+    }
 
     return (
         <>
@@ -72,7 +78,7 @@ const Help = () => {
                 <ReactQuill
                     style={{ marginTop: '2rem' }}
                     className='none-padding'
-                    value={item?.note ?? `<body></body>`}
+                    value={makePostItem(item?.note) ?? `<body></body>`}
                     readOnly={true}
                     theme={"bubble"}
                     bounds={'.app'}
