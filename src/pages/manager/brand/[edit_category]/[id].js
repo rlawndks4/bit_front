@@ -73,6 +73,10 @@ const BrandEdit = () => {
       label: '회사정보'
     },
     {
+      value: 3,
+      label: '배너관리'
+    },
+    {
       value: 4,
       label: 'SNS설정'
     },
