@@ -59,7 +59,7 @@ const Help = () => {
 
     return (
         <>
-            <BannerContainer style={{ backgroundImage: `url(${themeDnsData[`post_${item?.type}_banner_img`] || '/assets/background/overlay_4.jpg'})` }}>
+            <BannerContainer style={{ backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(${themeDnsData[`post_${item?.type}_banner_img`] || '/assets/background/overlay_4.jpg'})` }}>
                 <Title style={{ color: '#fff', margin: 'auto' }}>{_.find(postTypeList, { value: parseInt(item?.type) })?.label}</Title>
             </BannerContainer>
             <Wrappers style={{ marginTop: '2rem' }}>

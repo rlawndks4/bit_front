@@ -1,5 +1,7 @@
 import styled from 'styled-components'
-
+import { AnimatePresence, m, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { useEffect } from 'react';
 export const themeObj = {
   grey: {
     0: '#FFFFFF',
@@ -85,3 +87,26 @@ export const RedText = styled.div`
 color: red;
 font-weight: bold;
 `
+export const FadeInUp = ({ children, style }) => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start({ opacity: 1, y: 0 });
+    } else {
+      controls.start({ opacity: 0, y: 20 });
+    }
+  }, [controls, inView]);
+  return (
+    <m.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={controls}
+      transition={{ duration: 0.5 }}
+      style={{ ...style }}
+    >
+      {children}
+    </m.div>
+  );
+};

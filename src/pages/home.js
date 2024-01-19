@@ -1,16 +1,16 @@
 import { Icon } from "@iconify/react";
 import { Button, Card, Grid, Tab, Tabs } from "@mui/material";
-import dynamic from "next/dynamic";
+import { useAnimation } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { BlackText, Col, RedText, Row, Title, Title2, Title3, Wrappers } from "src/components/elements/styled-components";
+import Slider from "react-slick";
+import { BlackText, Col, FadeInUp, RedText, Row, Title, Title2, Title3, Wrappers, themeObj } from "src/components/elements/styled-components";
 import { useSettingsContext } from "src/components/settings";
 import { zTabMenu } from "src/data/data";
 import UserLayout from "src/layouts/user/UserLayout";
 import { makeYoutubeEmbed } from "src/utils/function";
-import HomeBanner from "src/views/section/HomeBanner";
 import styled from "styled-components";
-
+import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import('react-quill'), {
     ssr: false,
     loading: () => <p>Loading ...</p>,
@@ -47,16 +47,51 @@ row-gap: 0.5rem;
 const Video = styled.iframe`
 height: 350px;
 `
+const KakaoImg = styled.img`
+height: 400px;
+transition: 0.5s;
+&:hover{
+    transform: scale(1.2);
+}
+`
+const WhySelectContainer = styled.div`
+display: flex;
+flex-wrap: wrap;
+column-gap: 4%;
+row-gap: 2rem;
+`
+const WhySelectContent = styled.div`
+width:48%;
+display: flex;
+flex-direction: column;
+row-gap: 1rem;
+@media (max-width:1000px) {
+    width:100%;
+}
+`
+const WhySelectImg = styled.div`
+border-radius: 1rem;
+height: 300px;
+background-size: cover;
+background-repeat: no-repeat;
+transition: 0.5s;
+&:hover{
+    transform: scale(1.05);
+}
+@media (max-width:1000px) {
+    height: 50vw;
+}
+`
 const ServiceInfo = () => {
     const router = useRouter();
+
+    const controls = useAnimation();
     const [currentTab, setCurrentTab] = useState(0);
     useEffect(() => {
         setCurrentTab(parseInt(router.query?.type ?? 0));
     }, [router.query])
     const { themeDnsData, themePostCategoryList } = useSettingsContext();
     const [contentList, setContentList] = useState([]);
-
-    const [posts, setPosts] = useState({});
 
     useEffect(() => {
         if (themeDnsData?.id > 0) {
@@ -67,16 +102,24 @@ const ServiceInfo = () => {
         console.log(themeDnsData)
         setContentList(themeDnsData?.main_obj);
     }
-
+    const items_setting = {
+        infinite: true,
+        speed: 500,
+        autoplay: true,
+        autoplaySpeed: 2500,
+        slidesToShow: window.innerWidth > 1000 ? 4 : 2,
+        slidesToScroll: 1,
+        dots: false,
+    }
     return (
         <>
-            <BannerContainer style={{ backgroundImage: `url(${themeDnsData?.main_banner_img || '/assets/background/overlay_4.jpg'})` }}>
+            <BannerContainer style={{ backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(${themeDnsData?.main_banner_img || '/assets/background/overlay_4.jpg'})` }}>
                 <Title style={{ color: '#fff', margin: 'auto', fontSize: '1.5rem', maxWidth: '500px', textAlign: 'center' }}>{themeDnsData?.main_banner_text}</Title>
             </BannerContainer>
             <Wrappers>
                 {contentList.map((content, index) => (
                     <>
-                        <div style={{ marginTop: '2rem' }} >
+                        <FadeInUp style={{ marginTop: '4rem' }} >
                             {content.type == 'editor' &&
                                 <>
                                     <ReactQuill
@@ -124,29 +167,57 @@ const ServiceInfo = () => {
                                 </>}
                             {content.type == 'real_revenue' &&
                                 <>
+                                    <Title2 style={{ textAlign: 'center' }}>
+                                        {themeDnsData?.name} 고객분들의<br />
+                                        거짓없는 100% 실제 수익률입니다.
+                                    </Title2>
                                     {content?.list && content?.list.map((cont, idx) => (
                                         <>
+                                            <Col style={{ margin: 'auto', alignItems: 'center' }}>
+                                                <Title2 style={{ textAlign: 'center' }}>
+                                                    {cont.title}
+                                                </Title2>
+                                                <Title3 style={{ textAlign: 'center', margin: 'auto', color: themeObj.grey[700] }}>{cont.note}</Title3>
+                                                <img src={cont.img} style={{ maxWidth: '400px', margin: 'auto' }} />
 
+                                            </Col>
                                         </>
                                     ))}
                                 </>}
                             {content.type == 'customer_kakao' &&
                                 <>
-                                    {content?.list && content?.list.map((cont, idx) => (
-                                        <>
+                                    <Title2 style={{ textAlign: 'center' }}>
+                                        고객분과의 100% 실제 카톡대화
+                                    </Title2>
+                                    <Slider {...items_setting} className='margin-slide' >
+                                        {content?.list && content?.list.map((cont, idx) => (
+                                            <>
+                                                <KakaoImg src={cont.img} />
+                                            </>
+                                        ))}
+                                    </Slider>
 
-                                        </>
-                                    ))}
                                 </>}
                             {content.type == 'why_select' &&
                                 <>
-                                    {content?.list && content?.list.map((cont, idx) => (
-                                        <>
+                                    <Title2 style={{ textAlign: 'center' }}>
+                                        왜 {themeDnsData?.name}를<br />
+                                        선택해야 할까요?
+                                    </Title2>
+                                    <WhySelectContainer>
+                                        {content?.list && content?.list.map((cont, idx) => (
+                                            <>
+                                                <WhySelectContent>
+                                                    <WhySelectImg style={{ backgroundImage: `url(${cont?.img})` }} />
+                                                    <Title2 style={{ textAlign: 'center', margin: 'auto' }}>{cont.note}</Title2>
+                                                    <Title3 style={{ textAlign: 'center', margin: 'auto', color: themeObj.grey[700] }}>{cont.note}</Title3>
+                                                </WhySelectContent>
+                                            </>
+                                        ))}
+                                    </WhySelectContainer>
 
-                                        </>
-                                    ))}
                                 </>}
-                        </div>
+                        </FadeInUp>
                     </>
                 ))}
             </Wrappers>
