@@ -63,6 +63,7 @@ const App = (props) => {
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content={head_data?.name || headData?.name} />
         <meta name="theme-color" content={head_data?.theme_css?.main_color || headData?.theme_css?.main_color} />
+        <meta name="naver-site-verification" content="70115f4708740e678be294af408f769ab3daeff1" />
       </Head>
       <AuthProvider>
         <ReduxProvider store={store}>
