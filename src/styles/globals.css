@@ -1,5 +1,6 @@
 body {
   margin: 0 !important;
+  font-family: 'Droid Sans','Noto Sans Korean','Apple SD Gothic Neo', 'Malgun Gothic','Nanum Gothic', 'Noto Sans','sans-serif';
 }
 .ql-align-right img {
   float: right;
