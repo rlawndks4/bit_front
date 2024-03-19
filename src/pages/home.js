@@ -21,13 +21,13 @@ const ReactQuill = dynamic(() => import('react-quill'), {
 
 const BannerContainer = styled.div`
     width:100%;
-    padding: 20vw 0;
+    padding: 10vw 0;
     background-size: cover;
     display:flex;
     flex-direction:column;
     @media (max-width:1000px) {
         background-position: center;
-        padding: 20vh 0;
+        padding: 10vh 0;
     }
 `
 const RowMobileCol = styled.div`
