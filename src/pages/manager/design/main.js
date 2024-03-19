@@ -184,7 +184,38 @@ const MainEdit = () => {
                                             )
                                         }}
                                         />
-
+                                        <ReactQuill
+                                            className="max-height-editor"
+                                            theme={'snow'}
+                                            id={'note'}
+                                            placeholder={''}
+                                            value={item.main_banner_text}
+                                            modules={react_quill_data.modules}
+                                            formats={react_quill_data.formats}
+                                            onChange={async (e) => {
+                                                let note = e;
+                                                if (e.includes('<img src="') && e.includes('base64,')) {
+                                                    let base64_list = e.split('<img src="');
+                                                    for (var i = 0; i < base64_list.length; i++) {
+                                                        if (base64_list[i].includes('base64,')) {
+                                                            let img_src = base64_list[i];
+                                                            img_src = await img_src.split(`"></p>`);
+                                                            let base64 = img_src[0];
+                                                            img_src = await base64toFile(img_src[0], 'note.png');
+                                                            const response = await apiManager('upload/single', 'create', {
+                                                                post_file: img_src
+                                                            });
+                                                            note = await note.replace(base64, response?.url)
+                                                        }
+                                                    }
+                                                }
+                                                setItem(
+                                                    {
+                                                        ...item,
+                                                        ['main_banner_text']: note,
+                                                    }
+                                                )
+                                            }} />
                                         <TextField
                                             label={'제목'}
                                             value={item.main_banner_text}

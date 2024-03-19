@@ -128,7 +128,13 @@ const ServiceInfo = () => {
     return (
         <>
             <BannerContainer style={{ backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(${themeDnsData?.main_banner_img || '/assets/background/overlay_4.jpg'})` }}>
-                <Title style={{ color: '#fff', margin: 'auto', fontSize: '1.5rem', maxWidth: '500px', textAlign: 'center' }}>{themeDnsData?.main_banner_text}</Title>
+                <ReactQuill
+                    className='none-padding'
+                    value={themeDnsData?.main_banner_text}
+                    readOnly={true}
+                    theme={"bubble"}
+                    bounds={'.app'}
+                />
             </BannerContainer>
             <Wrappers>
                 {contentList.map((content, index) => (
